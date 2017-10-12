@@ -1,0 +1,504 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dev.seongenie.geniecoin.Fragment.OrderBookFragment"
+    android:orientation="vertical"
+    android:background="@color/primary_blue_mellow"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingTop="3dp"
+    android:paddingBottom="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include
+            layout="@layout/orderbook_search2">
+        </include>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:background="@color/primary_blue_dark">
+
+            <TextView
+                android:id="@+id/textview_sell_qnty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/primary_blue_dark"
+                android:text="@string/sell_qnty"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/coin_title_size" />
+
+            <TextView
+                android:id="@+id/textview_order_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.15"
+                android:background="@color/primary_blue_dark"
+                android:text="@string/order_price"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/coin_title_size" />
+
+            <TextView
+                android:id="@+id/textview_buy_qnty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/primary_blue_dark"
+                android:text="@string/buy_qnty"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/coin_title_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/blue_gradient"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ask_value5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:paddingRight="8dp"
+                android:textColor="#000000"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/ask_value4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:paddingRight="8dp"
+                android:textColor="#000000"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/ask_value3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:paddingRight="8dp"
+                android:textColor="#000000"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/ask_value2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_rect"
+                android:gravity="center|right"
+                android:paddingRight="8dp"
+                android:textColor="#000000"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/ask_value1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:paddingRight="8dp"
+                android:textColor="#000000"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.15"
+            android:background="@drawable/blue_gradient"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ask5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/ask4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/ask3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/ask2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/ask1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:layout_margin="1dp"
+            android:background="@color/orderbook_background_color"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/subtitle_trading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/subtitle"
+                android:text="@string/trading_infomation"
+                android:textAlignment="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textSize="@dimen/orderbook_subtitle_fontsize"
+                android:textColor="@color/white" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/volume_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/orderbook_price_list_width_margin"
+                    android:paddingBottom="2dp"
+                    android:text="@string/volume"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/volume"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/orderbook_price_list_width_margin"
+                    android:text="0" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white_pressed"
+                    android:layout_marginBottom="@dimen/orderbook_price_list_margin"/>
+
+                <TextView
+                    android:id="@+id/start_price_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:paddingLeft="@dimen/orderbook_price_list_width_margin"
+                    android:text="@string/start_price"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/start_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/orderbook_price_list_width_margin"
+                    android:text="0" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white_pressed"
+                    android:layout_marginBottom="@dimen/orderbook_price_list_margin"/>
+
+
+                <TextView
+                    android:id="@+id/highest_price_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:paddingLeft="@dimen/orderbook_price_list_width_margin"
+                    android:text="@string/highest_price"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/highest_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/orderbook_price_list_width_margin"
+                    android:text="0" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white_pressed"
+                    android:layout_marginBottom="@dimen/orderbook_price_list_margin"/>
+
+
+                <TextView
+                    android:id="@+id/lowest_price_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:paddingLeft="@dimen/orderbook_price_list_width_margin"
+                    android:text="@string/lowest_price"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/lowedst_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:paddingRight="@dimen/orderbook_price_list_width_margin"
+                    android:text="0" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:layout_margin="1dp"
+            android:background="@color/orderbook_background_color"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/subtitle_contract"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/subtitle"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/contract_infomation"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/orderbook_subtitle_fontsize" />
+            <ListView
+                android:id="@+id/listview_tradehistory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.15"
+            android:background="@drawable/red_gradient"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/bid5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/bid4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/orderbook_fontsize"
+                android:background="@drawable/border_rect"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/bid3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/orderbook_fontsize"
+                android:background="@drawable/border_rect"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/bid2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/orderbook_fontsize"
+                android:background="@drawable/border_rect"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/bid1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/orderbook_fontsize"
+                android:background="@drawable/border_rect"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/red_gradient"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/bid_value5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:textColor="#000000"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/bid_value4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_rect"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:textColor="#000000"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/bid_value3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:background="@drawable/border_rect"
+                android:textColor="#000000"
+
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/bid_value2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:background="@drawable/border_rect"
+                android:textColor="#000000"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+            <TextView
+                android:id="@+id/bid_value1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:textColor="#000000"
+                android:background="@drawable/border_rect"
+                android:textSize="@dimen/orderbook_fontsize" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.53"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/total_left_qnty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:paddingRight="8dp"
+            android:textSize="@dimen/orderbook_bottom_fontsize"
+            android:background="@color/white"
+            android:layout_margin="1dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/total_qnty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.15"
+            android:gravity="center"
+            android:textSize="@dimen/coin_title_size"
+            android:background="@color/white"
+            android:layout_margin="1dp"
+            android:textColor="@color/black"
+            android:text="5호가합"/>
+
+        <TextView
+            android:id="@+id/total_right_qnty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="8dp"
+            android:gravity="center|left"
+            android:textSize="@dimen/orderbook_bottom_fontsize"
+            android:layout_margin="1dp"
+            android:background="@color/white"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+</LinearLayout>

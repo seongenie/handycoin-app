@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingPrefix"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <com.rey.material.widget.Button
+        android:id="@+id/coinchip"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/chip_unselected"
+        android:gravity="center"
+        app:rd_style="@style/CoinChip"
+        tools:text="Filter 1"
+        android:textColor="@color/black" />
+
+</LinearLayout>

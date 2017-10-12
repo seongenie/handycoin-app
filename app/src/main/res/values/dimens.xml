@@ -1,0 +1,33 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="message_font_size">13pt</dimen>
+
+    <dimen name="coin_title_size">7.5pt</dimen>
+    <dimen name="coin_font_size">8pt</dimen>
+    <dimen name="pric_font_size">8pt</dimen>
+    <dimen name="change_pric_font_size">8pt</dimen>
+    <dimen name="convert_pric_font_size">6pt</dimen>
+
+    <dimen name="favor_title_margin_left">40dp</dimen>
+    <dimen name="favor_title_margin_right">30dp</dimen>
+    <dimen name="favor_title_padding_top">10dp</dimen>
+    <dimen name="favor_title_padding_bottom">6dp</dimen>
+
+    <dimen name="orderbook_price_list_margin">9.5dp</dimen>
+    <dimen name="orderbook_price_list_width_margin">5dp</dimen>
+    <dimen name="orderbook_fontsize">6.8pt</dimen>
+    <dimen name="orderbook_search_height">45dp</dimen>
+    <dimen name="orderbook_bottom_fontsize">6.5pt</dimen>
+    <dimen name="orderbook_subtitle_fontsize">6pt</dimen>
+
+    <dimen name="item_height">55dp</dimen>
+    <dimen name="item_padding">16dp</dimen>
+    <dimen name="item_marginTop">8dp</dimen>
+    <dimen name="item2_marginTop">5dp</dimen>
+    <dimen name="item2_marginBottom">8dp</dimen>
+
+    <dimen name="actionbar_height">45dp</dimen>
+</resources>

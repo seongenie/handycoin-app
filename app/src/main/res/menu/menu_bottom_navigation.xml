@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_favor"
+        android:icon="@drawable/ic_star"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/tab1" />
+
+    <item
+        android:id="@+id/action_orderbook"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/tab2" />
+
+    <item
+        android:id="@+id/action_transaction"
+        android:icon="@drawable/ic_trade"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/tab3" />
+
+    <item
+        android:id="@+id/action_balance"
+        android:icon="@drawable/ic_moneybag"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/tab4" />
+
+    <item
+        android:id="@+id/action_alarm"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/tab5" />
+
+</menu>

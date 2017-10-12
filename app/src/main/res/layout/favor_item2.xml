@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="0dp"
+    android:layout_marginLeft="6dp"
+    android:background="@drawable/favor_press"
+    android:listSelector="@android:color/transparent"
+    android:clickable="true"
+    android:layout_marginRight="6dp">
+
+    <RelativeLayout
+        android:id="@+id/layout_favor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="3dp">
+
+        <ImageView
+            android:id="@+id/ic_coin"
+            android:layout_marginLeft="5dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_qtum"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_toRightOf="@+id/ic_coin"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/item_marginTop">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.1"
+                    android:text="BTC"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textSize="@dimen/coin_font_size"
+                    android:textColor="@color/black"
+                    android:id="@+id/coin_name"/>
+
+                <TextView
+                    android:id="@+id/cur_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="3,000원"
+                    android:gravity="right"
+                    android:textAlignment="gravity"
+                    android:textSize="@dimen/pric_font_size" />
+
+                <ImageView
+                    android:id="@+id/updown_triangle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.3"
+                    android:src="@drawable/blue_triangle"
+                    android:paddingLeft="15dp" />
+
+                <TextView
+                    android:id="@+id/diff_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="100"
+                    android:gravity="right"
+                    android:textAlignment="gravity"
+                    android:paddingRight="15dp"
+                    android:textSize="@dimen/change_pric_font_size" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/item2_marginTop"
+                android:layout_marginBottom="@dimen/item_marginTop"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.6"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="bithumb"
+                    android:textSize="@dimen/convert_pric_font_size"
+                    android:id="@+id/exchange_name"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:gravity="right"
+                    android:textSize="@dimen/convert_pric_font_size"
+                    android:text="≈"
+                    android:id="@+id/convert_price"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.23"
+                    android:text="0.25%"
+                    android:gravity="right"
+                    android:textAlignment="gravity"
+                    android:textSize="@dimen/convert_pric_font_size"
+                    android:paddingRight="15dp"
+                    android:id="@+id/diff_rate"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/shadow"
+        android:layout_gravity="bottom"/>
+
+</FrameLayout>

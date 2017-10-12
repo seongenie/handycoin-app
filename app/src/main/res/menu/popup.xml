@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/decon"
+        android:showAsAction="ifRoom"
+        android:title="거래소 이름순"/>
+
+    <item
+        android:id="@+id/mRes"
+        android:showAsAction="ifRoom"
+        android:title="코인 이름순"/>
+
+</menu>
