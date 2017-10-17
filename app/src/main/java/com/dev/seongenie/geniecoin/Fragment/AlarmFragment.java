@@ -64,7 +64,7 @@ public class AlarmFragment extends Fragment {
 
         alarmCoins = new ArrayList<AlarmCoin>();
         alarmCoins.add(new AlarmCoin("bithumb", "XRP", 286, 1, true));
-        alarmCoins.add(new AlarmCoin("bithumb", "XRP", 287, 1, true));
+        alarmCoins.add(new AlarmCoin("bithumb", "XRP", 289, 1, true));
         alarmCoins.add(new AlarmCoin("bithumb", "XRP", 288, 1, true));
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
