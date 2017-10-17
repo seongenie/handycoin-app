@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -42,11 +43,15 @@ public class RestfulApi {
         return instance;
     }
 
+    public void getExchangeCoins(Callback<Map<String, List<String>>> callback){
+        coinService.getExchangeCoins().enqueue(callback);
+    }
 
-    public void getFavors(List<ReceiveFavorCoin> favorList, Callback<ResponseFavor> callback) {
+
+    public void getFavors(List<? extends BasicCoin> favorList, Callback<ResponseFavor> callback) {
         ArrayMap<String, List<String>> data = new ArrayMap<String, List<String>>();
 
-        for(ReceiveFavorCoin item : favorList) {
+        for(BasicCoin item : favorList) {
             String exchange = item.getExchange();
             if ( data.get(exchange) == null )data.put(exchange, new ArrayList<String>());
             data.get(exchange).add(item.getCoinName());
@@ -56,8 +61,8 @@ public class RestfulApi {
         String params = gson.toJson(data);
         RequestBody requestBody = RequestBody.create(MediaType.parse("text/plain"), params);
         Log.i("seongenie", "params : " + params);
-        Call<ResponseFavor> call = coinService.getFavors(requestBody);
-        call.enqueue(callback);
+
+        coinService.getFavors(requestBody).enqueue(callback);
     }
 
 
@@ -65,8 +70,7 @@ public class RestfulApi {
         String exchange = coin.getExchange();
         String coinName = coin.getCoinName();
 
-        Call<OrderBookDataView> call = coinService.getOrderBook(exchange, coinName);
-        call.enqueue(callback);
+        coinService.getOrderBook(exchange, coinName).enqueue(callback);
     }
 
 
@@ -75,8 +79,7 @@ public class RestfulApi {
         String exchange = coin.getExchange();
         String coinName = coin.getCoinName();
 
-        Call<TradeHistoryView> call = coinService.getTradeHistory(exchange, coinName);
-        call.enqueue(callback);
+        coinService.getTradeHistory(exchange, coinName).enqueue(callback);
     }
 
 }

@@ -4,21 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/title_balance"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="BALANCE"/>
-    </RelativeLayout>
-
     <com.dev.seongenie.geniecoin.Fragment.OrderBook.AnimatedExpandableListView
         android:id="@+id/listview_balance"
-        android:layout_below="@id/title_balance"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
-
+        android:layout_width="match_parent"
+        android:groupIndicator="@drawable/arrow_selector"
+        android:indicatorLeft="10dp"
+        android:childDivider="@color/primary_blue"/>
 
 </RelativeLayout>

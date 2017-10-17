@@ -126,7 +126,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SettingActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.enter, R.anim.none);
+                overridePendingTransition(R.anim.enter_right, R.anim.none);
             }
         });
 

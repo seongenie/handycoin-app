@@ -79,9 +79,14 @@ public class FavorDialogFragment extends AAH_FabulousFragment {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetFavorCoins();
-                if (favorDialogListener != null) { favorDialogListener.onClickCheck(); }
-                closeFilter("check");
+                try {
+                    resetFavorCoins();
+                    if (favorDialogListener != null) { favorDialogListener.onClickCheck(); }
+                    closeFilter("check");
+                } catch(Exception e) {
+                    Log.e("seongenie", "error occured (filter dialog)");
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -106,14 +111,14 @@ public class FavorDialogFragment extends AAH_FabulousFragment {
     }
 
     private void resetFavorCoins() {
-        SqliteRepository.getInstance(getContext()).deleteAllFavors();
+        SqliteRepository.getInstance(getContext()).resetAllFavors();
         Set<String> keys = applied_filters.keySet();
         Iterator<String> it = keys.iterator();
         while(it.hasNext()){
             String exchange = it.next();
             List<String> coins = applied_filters.get(exchange);
             for(String coin : coins) {
-                SqliteRepository.getInstance(getContext()).insertFavor(exchange, coin);
+                SqliteRepository.getInstance(getContext()).updateFavor(exchange, coin);
             }
         }
     }
@@ -126,6 +131,7 @@ public class FavorDialogFragment extends AAH_FabulousFragment {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.favor_filter_sorter, collection, false);
             FlexboxLayout fbl = (FlexboxLayout) layout.findViewById(R.id.fbl);
+
             switch (position) {
                 case 0:
                     inflateLayoutWithFilters("bithumb", fbl);
@@ -149,7 +155,7 @@ public class FavorDialogFragment extends AAH_FabulousFragment {
 
         @Override
         public int getCount() {
-            return 3;
+            return MainActivity.availableCoins.keySet().size();
         }
 
         @Override
@@ -171,43 +177,8 @@ public class FavorDialogFragment extends AAH_FabulousFragment {
         }
 
         private void inflateLayoutWithFilters(final String filter_category, FlexboxLayout fbl) {
-            List<String> keys = new ArrayList<>();
-            switch (filter_category) {
-                case "bithumb":
-                    keys.add("BTC");
-                    keys.add("ETH");
-                    keys.add("DASH");
-                    keys.add("LTC");
-                    keys.add("ETC");
-                    keys.add("XRP");
-                    keys.add("BCH");
-                    keys.add("XMR");
-                    keys.add("ZEC");
-                    break;
-                case "coinone":
-                    keys.add("BTC");
-                    keys.add("BCH");
-                    keys.add("ETH");
-                    keys.add("ETC");
-                    keys.add("XRP");
-                    keys.add("QTUM");
-                    break;
 
-                case "poloniex":
-                    keys.add("BTC");
-                    keys.add("BCH");
-                    keys.add("ETH");
-                    keys.add("LTC");
-                    keys.add("XRP");
-                    keys.add("ETC");
-                    keys.add("ZEC");
-                    keys.add("NXT");
-                    keys.add("STR");
-                    keys.add("DASH");
-                    keys.add("XMR");
-                    keys.add("REP");
-                    break;
-            }
+            List<String> keys = MainActivity.availableCoins.get(filter_category);
 
             for (int i = 0; i < keys.size(); i++) {
                 View subchild = getActivity().getLayoutInflater().inflate(R.layout.single_chip, null);

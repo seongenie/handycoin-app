@@ -7,29 +7,19 @@
     android:layout_marginBottom="3dp"
     android:orientation="horizontal">
 
-    <com.rey.material.widget.Button
-        android:id="@+id/orderbook_search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="@string/select"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"
-        app:rd_style="@style/OkButtonRippleStyle"
-        android:background="@drawable/okbutton_rounded"
-        android:textColor="@color/white" />
-
     <!-- this is the item front view -->
     <RelativeLayout
         android:tag="front"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="3dp"
-        android:background="@color/white">
+        android:layout_weight="0.5"
+        android:background="@drawable/search_layout">
 
         <ImageView
             android:id="@+id/orderbook_coin_icon"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginLeft="3dp"
+            android:layout_marginLeft="6dp"
             android:layout_centerVertical="true"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -108,5 +98,18 @@
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
+
+
+    <com.rey.material.widget.Button
+        android:id="@+id/orderbook_search_button"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/search_button"
+        android:text="@string/ic_search"
+        android:textSize="10pt"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Button"
+        android:textColor="@color/white"
+        app:rd_style="@style/OkButtonRippleStyle" />
+
 
 </LinearLayout>

@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,17 +17,16 @@ import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.allattentionhere.fabulousfilter.AAH_FabulousFragment;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.simplelist.MaterialSimpleListAdapter;
+import com.afollestad.materialdialogs.simplelist.MaterialSimpleListItem;
 import com.dev.seongenie.geniecoin.Api.CommonMessage;
 import com.dev.seongenie.geniecoin.CoinSources.BasicCoin;
-import com.dev.seongenie.geniecoin.CoinSources.ReceiveFavorCoin;
 import com.dev.seongenie.geniecoin.Fragment.OrderBook.TradeHistory;
 import com.dev.seongenie.geniecoin.Fragment.OrderBook.TradeHistoryView;
 import com.dev.seongenie.geniecoin.MainActivity;
@@ -36,24 +34,17 @@ import com.dev.seongenie.geniecoin.R;
 import com.dev.seongenie.geniecoin.ServerConnection.RestfulApi;
 import com.dev.seongenie.geniecoin.View.OrderBookDataView;
 import com.rey.material.app.Dialog;
-import com.rey.material.app.DialogFragment;
 import com.rey.material.widget.Button;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeMap;
-import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -101,14 +92,15 @@ public class OrderBookFragment extends Fragment {
 
     private Dialog selectDialog;
 
-    private Timer timer = new Timer();
-    private int REFRESH_INTERVAL = 2000;
+    private Timer timer = null;
+    private int REFRESH_INTERVAL = 3000;
     private int BLINK_DURATION = 150;
     private PriorityQueue<String> queue = new PriorityQueue<String>();
     AlphaAnimation mAnimation = null;
     Callback<OrderBookDataView> orderbookCallback;
     Callback<TradeHistoryView> tradeHistoryCallback;
 
+    private static final String TAG_SELECT_ICON_DIALOG = "TAG_SELECT_ICON_DIALOG";
     public OrderBookFragment() {
         // Required empty public constructor
     }
@@ -119,7 +111,6 @@ public class OrderBookFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_orderbook, container, false);
-
 
 //        message = (TextView) v.findViewById(R.id.no_select);
 
@@ -352,12 +343,12 @@ public class OrderBookFragment extends Fragment {
         ((TextView)v.findViewById(R.id.highest_price_label)).setTypeface(MainActivity.nanumgothicbold);
         ((TextView)v.findViewById(R.id.lowest_price_label)).setTypeface(MainActivity.nanumgothicbold);
 
-        ((TextView)v.findViewById(R.id.subtitle_contract)).setTypeface(MainActivity.nanumgothicbold);
-        ((TextView)v.findViewById(R.id.subtitle_trading)).setTypeface(MainActivity.nanumgothicbold);
+        ((TextView)v.findViewById(R.id.subtitle_contract)).setTypeface(MainActivity.nanumgothic);
+        ((TextView)v.findViewById(R.id.subtitle_trading)).setTypeface(MainActivity.nanumgothic);
 
-        ((TextView)v.findViewById(R.id.textview_buy_qnty)).setTypeface(MainActivity.nanumgothicbold);
-        ((TextView)v.findViewById(R.id.textview_order_price)).setTypeface(MainActivity.nanumgothicbold);
-        ((TextView)v.findViewById(R.id.textview_sell_qnty)).setTypeface(MainActivity.nanumgothicbold);
+        ((TextView)v.findViewById(R.id.textview_buy_qnty)).setTypeface(MainActivity.nanumgothic);
+        ((TextView)v.findViewById(R.id.textview_order_price)).setTypeface(MainActivity.nanumgothic);
+        ((TextView)v.findViewById(R.id.textview_sell_qnty)).setTypeface(MainActivity.nanumgothic);
 
         coinNameTextView = (TextView) v.findViewById(R.id.orderbook_coin_name);
         exchangeNameTextView = (TextView) v.findViewById(R.id.orderbook_exchange_name);
@@ -372,21 +363,50 @@ public class OrderBookFragment extends Fragment {
 
 
         View dialogView = inflater.inflate(R.layout.favor_filter_view, container, false);
-
-        selectDialog = new Dialog(this.getContext());
-        selectDialog.title("거래소 선택")
-                .positiveAction("OK")
-                .negativeAction("CANCEL")
-                .contentView(dialogView)
-                .cancelable(true);
+//
+//        selectDialog = new Dialog(this.getContext());
+//        selectDialog.title("거래소 선택")
+//                .positiveAction("OK")
+//                .negativeAction("CANCEL")
+//                .contentView(dialogView)
+//                .cancelable(true);
 
         Button searchButton = (Button) v.findViewById(R.id.orderbook_search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectDialog.show();
+                final MaterialSimpleListAdapter adapter = new MaterialSimpleListAdapter(new MaterialSimpleListAdapter.Callback() {
+                    @Override
+                    public void onMaterialListItemSelected(MaterialDialog dialog, int index, MaterialSimpleListItem item) {
+                        // TODO
+                    }
+                });
+
+                adapter.add(new MaterialSimpleListItem.Builder(getContext())
+                        .content("username@gmail.com")
+                        .icon(R.drawable.ic_btc)
+                        .backgroundColor(Color.WHITE)
+                        .build());
+                adapter.add(new MaterialSimpleListItem.Builder(getContext())
+                        .content("user02@gmail.com")
+                        .icon(R.drawable.ic_xrp)
+                        .backgroundColor(Color.WHITE)
+                        .build());
+                adapter.add(new MaterialSimpleListItem.Builder(getContext())
+                        .content(R.string.bithumb)
+                        .icon(R.drawable.ic_eth)
+                        .backgroundColor(Color.WHITE)
+                        .build());
+
+
+                new MaterialDialog.Builder(getContext())
+                        .title("거래소 선택")
+                        .adapter(adapter, null)
+                        .show();
             }
         });
+
+        searchButton.setTypeface(MainActivity.materialIconFont);
 
 
         ListView listview ;
@@ -424,6 +444,13 @@ public class OrderBookFragment extends Fragment {
             }
         };
 
+
+
+        //Defatul value
+        if (this.basicCoin == null ) {
+            setOrderBookCoin(new BasicCoin("bithumb", "BTC"));
+        }
+
         return v;
     }
 
@@ -447,13 +474,16 @@ public class OrderBookFragment extends Fragment {
 
     public void setOrderBookCoin(BasicCoin basicCoin) {
         this.basicCoin = basicCoin;
-        histories.clear();
+        if (histories != null) {
+            histories.clear();
+        }
         if(basicCoin != null) {
             coinNameTextView.setText(basicCoin.getCoinName());
-            exchangeNameTextView.setText(exchangeToKorean(basicCoin.getExchange()));
-            coinIcon.setImageResource(getCoinIcon(basicCoin.getCoinName()));
+            exchangeNameTextView.setText(MainActivity.exchangeToKorean(basicCoin.getExchange()));
+            coinIcon.setImageResource(MainActivity.getCoinIcon(basicCoin.getCoinName()));
             if(timer != null) {
                 timer.cancel();
+                timer = null;
             }
 
             timer = new Timer();
@@ -473,104 +503,24 @@ public class OrderBookFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         setOrderBookCoin(basicCoin);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if(timer != null)timer.cancel();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if(timer != null)timer.cancel();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if(timer != null)timer.cancel();
+        if(timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
 
     private double getChangeRate(double lastPrice, double firstPrice) {
         double diffence = lastPrice - firstPrice;
         return firstPrice != 0 ? diffence * 100 / firstPrice : 0;
     }
-
-    private String exchangeToKorean(String eng){
-        String result = "";
-
-        switch (eng) {
-            case "bithumb" :
-                result = "빗썸";
-                break;
-
-            case "coinone" :
-                result = "코인원";
-                break;
-            case "poloniex" :
-                result = "폴로닉스";
-                break;
-            case "coinis" :
-                result = "코인이즈";
-                break;
-        }
-        return result;
-    }
-
-    private int getCoinIcon(String coin){
-        int result = 0;
-        switch (coin) {
-            case "BTC" :
-                result = R.drawable.ic_btc;
-                break;
-            case "BCH" :
-                result = R.drawable.ic_bch;
-                break;
-            case "XRP" :
-                result = R.drawable.ic_xrp;
-                break;
-            case "DASH" :
-                result = R.drawable.ic_dash;
-                break;
-            case "ETH" :
-                result = R.drawable.ic_eth;
-                break;
-            case "ETC" :
-                result = R.drawable.ic_etc;
-                break;
-            case "XMR" :
-                result = R.drawable.ic_xmr;
-                break;
-            case "ZEC" :
-                result = R.drawable.ic_zec;
-                break;
-            case "LTC" :
-                result = R.drawable.ic_ltc;
-                break;
-            case "QTUM" :
-                result = R.drawable.ic_qtum;
-                break;
-            case "STR" :
-                result = R.drawable.ic_str;
-                break;
-            case "REP" :
-                result = R.drawable.ic_rep;
-                break;
-            case "NXT" :
-                result = R.drawable.ic_nxt;
-                break;
-            case "" :
-                break;
-        }
-
-        return result;
-    }
-
 
     private class TradeAdapter extends BaseAdapter {
         private ArrayList<TradeHistory> item;
@@ -629,5 +579,4 @@ public class OrderBookFragment extends Fragment {
             } else return;
         }
     }
-
 }

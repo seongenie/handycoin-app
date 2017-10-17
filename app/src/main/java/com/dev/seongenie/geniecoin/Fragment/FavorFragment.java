@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import com.dev.seongenie.geniecoin.CoinSources.ResponseFavor;
 import com.dev.seongenie.geniecoin.MainActivity;
 import com.dev.seongenie.geniecoin.R;
 import com.dev.seongenie.geniecoin.ServerConnection.RestfulApi;
+import com.rey.material.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +43,8 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,13 +54,18 @@ import retrofit2.Response;
  * A simple {@link Fragment} subclass.
  */
 public class FavorFragment extends Fragment implements AAH_FabulousFragment.Callbacks {
+
+    @BindView(R.id.recycler)
     RecyclerView recyclerView;
     FavorsAdapter adapter;
     View v;
     FavorDialogFragment dialogFrag;
+
+    @BindView(R.id.add_coin_message)
     TextView addCoinMessage;
-    private Timer timer = new Timer();
-    private int REFRESH_INTERVAL = 2000;
+
+    private Timer timer;
+    private int REFRESH_INTERVAL = 3000;
     private Fragment thisFragment = this;
     private ImageButton favorSortButton;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
@@ -77,7 +86,8 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_favor, container, false);
-        final FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
+        ButterKnife.bind(this, v);
+        final FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
         getActivity().openOrCreateDatabase(SqliteRepository.DATABASE_NAME, Context.MODE_PRIVATE, null);
 
@@ -99,6 +109,7 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
                 RestfulApi.getInstance().getFavors(coins, callback);
             }
         });
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,11 +123,10 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
         TextView favorTitlePrice = (TextView) v.findViewById(R.id.favor_title_price);
         TextView favorTitleChange = (TextView) v.findViewById(R.id.favor_title_change);
 
-        favorTitleCoin.setTypeface(MainActivity.nanumgothicbold);
-        favorTitlePrice.setTypeface(MainActivity.nanumgothicbold);
-        favorTitleChange.setTypeface(MainActivity.nanumgothicbold);
+        favorTitleCoin.setTypeface(MainActivity.nanumgothic);
+        favorTitlePrice.setTypeface(MainActivity.nanumgothic);
+        favorTitleChange.setTypeface(MainActivity.nanumgothic);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.recycler);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -208,9 +218,6 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
             }
         };
 
-
-        RestfulApi.getInstance().getFavors(coins, callback);
-
         favorSortButton = (ImageButton) getActivity().findViewById(R.id.favor_sort);
         favorSortButton.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
@@ -224,45 +231,33 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
     private void doSomethingRepeatedly() {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                Log.d("seongenie", "network call!!");
                 RestfulApi.getInstance().getFavors(coins, callback);
-                Log.d("seongenie", "network call finished!!");
+                Log.d("seongenie", "coin_size : " + coins.size());
+                if(coins.size() <= 1) {
+                    timer.cancel();
+                    timer = null;
+                }
             }
         }, 0, REFRESH_INTERVAL);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        timer = new Timer();
-        doSomethingRepeatedly();
+    public void onResume() {
+        super.onResume();
+        if (timer == null) {
+            timer = new Timer();
+            doSomethingRepeatedly();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (timer != null) timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
     }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (timer != null) timer.cancel();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (timer != null) timer.cancel();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (timer != null) timer.cancel();
-    }
-
-
 
 
     private void populate() {
@@ -292,6 +287,10 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
         }
 
         this.coins.add(new ReceiveFavorCoin("", "", 0, 0));
+        if (callback != null && timer == null) {
+            timer = new Timer();
+            doSomethingRepeatedly();
+        }
     }
 
     private int removeCoin(ReceiveFavorCoin coin) {

@@ -20,6 +20,6 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.none, R.anim.leave);
+        overridePendingTransition(R.anim.enter_left, R.anim.leave_left);
     }
 }

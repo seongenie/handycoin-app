@@ -1,14 +1,16 @@
 <resources>
     <string name="app_name">핸디코인</string>
-    <string name="tab1">모아보기</string>
+    <string name="tab1">골라보기</string>
     <string name="tab2">호가</string>
     <string name="tab3">체결</string>
     <string name="tab4">잔고</string>
     <string name="tab5">알람</string>
 
     <string name="add_coin_message">코인을 추가하세요.</string>
+    <string name="add_alarm_message">알람을 추가하세요.</string>
     <string name="save_coin_message">코인 목록이 적용되었습니다.</string>
     <string name="server_connect_failed_message">서버연결에 실패했습니다.</string>
+    <string name="save_bithumb_apikey_message">빗썸 API키가 설정되었습니다.</string>
     <string name="coin">코인</string>
     <string name="price">가격</string>
     <string name="change">변동</string>

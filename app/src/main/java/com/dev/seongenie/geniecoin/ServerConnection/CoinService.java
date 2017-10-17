@@ -4,6 +4,9 @@ import com.dev.seongenie.geniecoin.CoinSources.ResponseFavor;
 import com.dev.seongenie.geniecoin.Fragment.OrderBook.TradeHistoryView;
 import com.dev.seongenie.geniecoin.View.OrderBookDataView;
 
+import java.util.List;
+import java.util.Map;
+
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,6 +19,9 @@ import retrofit2.http.Query;
  */
 
 public interface CoinService {
+
+    @GET("/coin/posscoin")
+    Call<Map<String, List<String>>> getExchangeCoins();
 
     @POST("/coin/ticker")
     Call<ResponseFavor> getFavors(@Body RequestBody params);

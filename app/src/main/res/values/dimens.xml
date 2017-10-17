@@ -29,5 +29,7 @@
     <dimen name="item2_marginTop">5dp</dimen>
     <dimen name="item2_marginBottom">8dp</dimen>
 
+    <dimen name="main_title_font_size">8pt</dimen>
+
     <dimen name="actionbar_height">45dp</dimen>
 </resources>

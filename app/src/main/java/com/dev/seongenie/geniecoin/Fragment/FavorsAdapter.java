@@ -89,8 +89,8 @@ public class FavorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         ReceiveFavorCoin item = items.get(position);
         FavorViewHolder vh = (FavorViewHolder) holder;
         vh.coinName.setText(item.getCoinName());
-        vh.exchangeName.setText(exchangeToKorean(item.getExchange()));
-        vh.coinIcon.setImageResource(getCoinIcon(item.getCoinName()));
+        vh.exchangeName.setText(MainActivity.exchangeToKorean(item.getExchange()));
+        vh.coinIcon.setImageResource(MainActivity.getCoinIcon(item.getCoinName()));
 
         boolean USD = item.getExchange().equals("poloniex") ? true : false;
 
@@ -147,76 +147,6 @@ public class FavorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         mAnimation.setRepeatCount(repeat);
         mAnimation.setRepeatMode(Animation.REVERSE);
         view.startAnimation(mAnimation);
-    }
-
-    private int getCoinIcon(String coin){
-        int result = 0;
-        switch (coin) {
-            case "BTC" :
-                result = R.drawable.ic_btc;
-                break;
-            case "BCH" :
-                result = R.drawable.ic_bch;
-                break;
-            case "XRP" :
-                result = R.drawable.ic_xrp;
-                break;
-            case "DASH" :
-                result = R.drawable.ic_dash;
-                break;
-            case "ETH" :
-                result = R.drawable.ic_eth;
-                break;
-            case "ETC" :
-                result = R.drawable.ic_etc;
-                break;
-            case "XMR" :
-                result = R.drawable.ic_xmr;
-                break;
-            case "ZEC" :
-                result = R.drawable.ic_zec;
-                break;
-            case "LTC" :
-                result = R.drawable.ic_ltc;
-                break;
-            case "QTUM" :
-                result = R.drawable.ic_qtum;
-                break;
-            case "STR" :
-                result = R.drawable.ic_str;
-                break;
-            case "REP" :
-                result = R.drawable.ic_rep;
-                break;
-            case "NXT" :
-                result = R.drawable.ic_nxt;
-                break;
-            case "" :
-                break;
-        }
-
-        return result;
-    }
-
-    private String exchangeToKorean(String eng){
-        String result = "";
-
-        switch (eng) {
-            case "bithumb" :
-                result = "빗썸";
-                break;
-
-            case "coinone" :
-                result = "코인원";
-                break;
-            case "poloniex" :
-                result = "폴로닉스";
-                break;
-            case "coinis" :
-                result = "코인이즈";
-                break;
-        }
-        return result;
     }
 
 }

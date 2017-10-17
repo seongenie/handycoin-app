@@ -1,15 +1,68 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dev.seongenie.geniecoin.Fragment.TransactionFragment">
+    tools:context="com.dev.seongenie.geniecoin.Fragment.FavorFragment"
+    android:keepScreenOn="true"
+    android:background="@color/white" >
+
+    <RelativeLayout
+        android:id="@+id/alarm_title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_blue"
+        android:paddingTop="@dimen/favor_title_padding_top"
+        android:elevation="4dp"
+        android:paddingBottom="@dimen/favor_title_padding_bottom">
+        <TextView
+            android:id="@+id/alarm_title_coin"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/coin_title_size"
+            android:gravity="left"
+            android:textColor="@color/white"
+            android:layout_marginLeft="@dimen/favor_title_margin_left"
+            android:text="코인">
+        </TextView>
+
+        <TextView
+            android:id="@+id/alarm_title_price"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/coin_title_size"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="목표가">
+        </TextView>
+
+        <TextView
+            android:id="@+id/alarm_title_change"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/coin_title_size"
+            android:gravity="right"
+            android:layout_marginRight="@dimen/favor_title_margin_right"
+            android:textColor="@color/white"
+            android:text="상하구분">
+        </TextView>
+    </RelativeLayout>
 
     <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alarm_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/alarm_title_layout" />
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/tab5"
-        android:textSize="30sp" />
+        android:id="@+id/add_alarm_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/message_font_size"
+        android:text="@string/add_alarm_message"/>
 
 </RelativeLayout>

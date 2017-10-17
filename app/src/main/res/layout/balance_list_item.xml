@@ -1,25 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="55dip"
+    android:layout_height="55dp"
     android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/lblListItem"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="17dip"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="XRP"/>
+    <RelativeLayout
+        android:layout_width="34dp"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:background="@color/primary_blue_mellow2"
+        android:orientation="vertical">
+        <com.rey.material.widget.ImageView
+            android:id="@+id/balance_coin_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/lblListItem2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="17dip"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:text="XRP"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_blue_mellow2"
+        android:layout_weight="1.5">
+
+        <com.rey.material.widget.TextView
+            android:id="@+id/balance_coin_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17dip"
+            android:paddingTop="4dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp"/>
+
+        <com.rey.material.widget.TextView
+            android:id="@+id/balance_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="textEnd"
+            android:textSize="17dip"
+            android:paddingTop="2dp"
+            android:paddingRight="10dp"
+            android:layout_below="@+id/balance_coin_name" />
+    </RelativeLayout>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/primary_blue"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <com.rey.material.widget.TextView
+            android:id="@+id/balance_qnty"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:paddingTop="4dp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="17dip" />
+
+        <com.rey.material.widget.TextView
+            android:id="@+id/balance_evaluation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/balance_qnty"
+            android:paddingRight="10dp"
+            android:paddingTop="2dp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:textSize="17dip" />
+    </RelativeLayout>
 
 </LinearLayout>

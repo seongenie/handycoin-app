@@ -23,9 +23,14 @@
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
 
-    <color name="primary_blue_mellow">#deefff</color>
-    <color name="primary_blue">#1e82cd</color>
-    <color name="primary_blue_dark">#0a6ecd</color>
+    <!--<color name="primary_blue_mellow">#deefff</color>-->
+    <!--<color name="primary_blue">#1e82cd</color>-->
+    <!--<color name="primary_blue_dark">#0a6ecd</color>-->
+
+    <color name="primary_blue_mellow2">#dadada</color>
+    <color name="primary_blue_mellow">#cccccc</color>
+    <color name="primary_blue">#515151</color>
+    <color name="primary_blue_dark">#282828</color>
 
     <color name="bid_background_color">#e0f4ff</color>
     <color name="ask_background_color">#ffecec</color>
@@ -47,7 +52,9 @@
     <color name="brown">#795548</color>
 
     <color name="message_error">#FF4081</color>
-    <color name="message_ok">#6fafc0</color>
+    <!--<color name="message_ok">#6fafc0</color>-->
+
+    <color name="message_ok">#009ac4</color>
 
     <color name="subtitle">#6fafc0</color>
 
