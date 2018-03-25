@@ -1,0 +1,283 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dev.seongenie.geniecoin.Fragment.OrderBookFragment">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="12646"
+            android:gravity="center|right"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/orderbook_fontsize" />
+
+        <com.rey.material.widget.TextView
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/orderbook_unit"
+            android:text="9,508,000"
+            android:gravity="center"
+            android:layout_margin="@dimen/orderbook_margin"
+            android:background="@color/ask2"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/orderbook_fontsize" />
+    </TableRow>
+
+
+</TableLayout>

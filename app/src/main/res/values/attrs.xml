@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="orderbook">
+        <attr name="viewColor" format="enum" >
+            <enum name="ask" value="1"/>
+            <enum name="bid" value="2"/>
+        </attr>
+        <attr name="viewAlignment" format="enum">
+            <enum name="start" value="2"/>
+            <enum name="center" value="4"/>
+            <enum name="end" value="3"/>
+        </attr>
+        <attr name="viewGravity" format="enum">
+            <enum name="left" value="-1"/>
+            <enum name="center" value="0"/>
+            <enum name="right" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

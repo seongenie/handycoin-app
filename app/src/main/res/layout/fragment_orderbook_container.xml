@@ -1,0 +1,289 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/orderbook_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <include
+            layout="@layout/orderbook_search2">
+        </include>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:elevation="4dp"
+            android:orientation="horizontal"
+            android:background="@color/primary_blue_dark">
+
+            <TextView
+                android:id="@+id/textview_sell_qnty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/primary_blue_dark"
+                android:text="@string/sell_qnty"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/coin_title_size" />
+
+            <TextView
+                android:id="@+id/textview_order_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
+                android:background="@color/primary_blue_dark"
+                android:text="@string/order_price"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/coin_title_size" />
+
+            <TextView
+                android:id="@+id/textview_buy_qnty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/primary_blue_dark"
+                android:text="@string/buy_qnty"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/coin_title_size" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+    <ScrollView
+        android:layout_below="@id/orderbook_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:keepScreenOn="true"
+                android:orientation="horizontal"
+                tools:context="com.dev.seongenie.geniecoin.Fragment.OrderBookFragment">
+
+                <com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout
+                    android:id="@+id/ask_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    custom:viewAlignment="end"
+                    custom:viewColor="ask"
+                    custom:viewGravity="right"
+                    android:layout_weight="1"></com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout>
+
+                <com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout
+                    android:id="@+id/ask_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    custom:viewColor="ask"
+                    custom:viewAlignment="center"
+                    custom:viewGravity="center"
+                    android:layout_weight="0.9">
+                </com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:layout_margin="1dp"
+                    android:background="@color/orderbook_background_color"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/subtitle_trading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/primary_blue"
+                        android:text="@string/trading_infomation"
+                        android:textAlignment="center"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:textSize="@dimen/orderbook_subtitle_fontsize"
+                        android:textColor="@color/white" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/volume_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/orderbook_price_list_width_margin"
+                            android:paddingBottom="2dp"
+                            android:text="@string/volume"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/volume"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/orderbook_price_list_width_margin"
+                            android:text="0" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/white_pressed"
+                            android:layout_marginBottom="@dimen/orderbook_price_list_margin"/>
+
+                        <TextView
+                            android:id="@+id/start_price_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingLeft="@dimen/orderbook_price_list_width_margin"
+                            android:text="@string/start_price"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/start_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/orderbook_price_list_width_margin"
+                            android:text="0" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/white_pressed"
+                            android:layout_marginBottom="@dimen/orderbook_price_list_margin"/>
+
+
+                        <TextView
+                            android:id="@+id/highest_price_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingLeft="@dimen/orderbook_price_list_width_margin"
+                            android:text="@string/highest_price"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/highest_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/orderbook_price_list_width_margin"
+                            android:text="0" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/white_pressed"
+                            android:layout_marginBottom="@dimen/orderbook_price_list_margin"/>
+
+
+                        <TextView
+                            android:id="@+id/lowest_price_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:paddingLeft="@dimen/orderbook_price_list_width_margin"
+                            android:text="@string/lowest_price"
+                            android:textColor="#000000" />
+
+                        <TextView
+                            android:id="@+id/lowedst_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/orderbook_price_list_width_margin"
+                            android:text="0" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:keepScreenOn="true"
+                android:orientation="horizontal"
+                tools:context="com.dev.seongenie.geniecoin.Fragment.OrderBookFragment">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="top"
+                    android:layout_margin="1dp"
+                    android:background="@color/orderbook_background_color"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/subtitle_contract"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/primary_blue"
+                        android:paddingBottom="5dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/contract_infomation"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/orderbook_subtitle_fontsize" />
+                    <ListView
+                        android:id="@+id/listview_tradehistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+
+                <com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout
+                    android:id="@+id/bid_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    custom:viewColor="bid"
+                    custom:viewAlignment="center"
+                    custom:viewGravity="center"
+                    android:layout_weight="0.9"></com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout>
+
+                <com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout
+                    android:id="@+id/bid_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    custom:viewColor="bid"
+                    custom:viewAlignment="start"
+                    custom:viewGravity="left"
+                    android:layout_weight="1"></com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>
+
+

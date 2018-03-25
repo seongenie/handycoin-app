@@ -32,4 +32,8 @@
     <dimen name="main_title_font_size">8pt</dimen>
 
     <dimen name="actionbar_height">45dp</dimen>
+
+    <dimen name="orderbook_unit">7dp</dimen>
+    <dimen name="orderbook_margin">0.5dp</dimen>
+
 </resources>

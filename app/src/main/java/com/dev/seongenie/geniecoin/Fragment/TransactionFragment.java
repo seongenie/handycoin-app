@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dev.seongenie.geniecoin.CoinSources.ColorPrice;
+import com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout;
 import com.dev.seongenie.geniecoin.R;
 
 
@@ -28,7 +30,26 @@ public class TransactionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transaction, container, false);
+        View v = inflater.inflate(R.layout.fragment_orderbook_container, container, false);
+
+        OrderbookTableLayout layout = (OrderbookTableLayout) v.findViewById(R.id.ask_amount);
+
+        ColorPrice[] items = new ColorPrice[10];
+        for(int i=0; i<10; i++) {
+            items[i] = new ColorPrice(String.valueOf(i*100), getResources().getColor(R.color.black));
+        }
+        layout.setAllItems(items);
+
+        layout = (OrderbookTableLayout) v.findViewById(R.id.ask_price);
+        layout.setAllItems(items);
+
+        layout = (OrderbookTableLayout) v.findViewById(R.id.bid_amount);
+        layout.setAllItems(items);
+
+        layout = (OrderbookTableLayout) v.findViewById(R.id.bid_price);
+        layout.setAllItems(items);
+
+        return v;
     }
 
 }
