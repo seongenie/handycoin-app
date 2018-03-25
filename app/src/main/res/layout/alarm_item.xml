@@ -4,7 +4,6 @@
     android:id="@+id/item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="0dp"
     android:layout_marginLeft="6dp"
     android:background="@drawable/favor_press"
     android:listSelector="@android:color/transparent"
@@ -14,115 +13,112 @@
     <RelativeLayout
         android:id="@+id/layout_favor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="3dp">
+        android:layout_height="56dp">
 
         <ImageView
             android:id="@+id/ic_coin"
-            android:layout_marginLeft="5dp"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_centerVertical="true"
-            app:srcCompat="@drawable/ic_qtum"/>
+            android:layout_marginLeft="5dp"
+            app:srcCompat="@drawable/ic_qtum" />
+
+        <com.rey.material.widget.CheckBox
+            android:id="@+id/remove_checkBox"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/linearLayout"
+            android:gravity="center"
+            android:layout_alignParentStart="true" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_toRightOf="@+id/ic_coin"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ic_coin"
             android:baselineAligned="false"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/item_marginTop">
+                android:layout_height="match_parent"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.31">
+
+                    <TextView
+                        android:id="@+id/coin_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:paddingLeft="10dp"
+                        android:text="BTC"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/coin_font_size" />
+
+                    <TextView
+                        android:id="@+id/exchange_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="15dp"
+                        android:layout_below="@+id/coin_name"
+                        android:gravity="left|center"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="3dp"
+                        android:text="bithumb"
+                        android:textSize="@dimen/convert_pric_font_size" />
+
+
+                </RelativeLayout>
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.1"
-                    android:text="BTC"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:textSize="@dimen/coin_font_size"
-                    android:textColor="@color/black"
-                    android:id="@+id/coin_name"/>
-
-                <TextView
-                    android:id="@+id/cur_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="3,000원"
-                    android:gravity="right"
-                    android:textAlignment="gravity"
-                    android:textSize="@dimen/pric_font_size" />
-
-                <ImageView
-                    android:id="@+id/updown_triangle"
+                    android:id="@+id/goal_textview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.35"
-                    android:src="@drawable/blue_triangle"
-                    android:paddingLeft="5dp" />
+                    android:layout_weight="1.1"
+                    android:gravity="right|center"
+                    android:text="7,000,000 원"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/pric_font_size" />
 
                 <TextView
-                    android:id="@+id/diff_price"
+                    android:id="@+id/updown_textview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="100"
-                    android:gravity="right"
-                    android:textAlignment="gravity"
-                    android:paddingRight="8dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1.2"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:text="이상"
+                    android:textColor="@color/red"
                     android:textSize="@dimen/change_pric_font_size" />
 
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/item2_marginTop"
-                android:layout_marginBottom="@dimen/item_marginTop"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.6"
+                <com.rey.material.widget.Switch
+                    android:id="@+id/onoff_switch"
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="bithumb"
-                    android:textSize="@dimen/convert_pric_font_size"
-                    android:id="@+id/exchange_name"/>
+                    android:paddingRight="10dp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:gravity="right"
-                    android:textSize="@dimen/convert_pric_font_size"
-                    android:text="≈"
-                    android:id="@+id/convert_price"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.28"
-                    android:text="0.25%"
-                    android:gravity="right"
-                    android:textAlignment="gravity"
-                    android:textSize="@dimen/convert_pric_font_size"
-                    android:paddingRight="8dp"
-                    android:id="@+id/diff_rate"/>
             </LinearLayout>
+
         </LinearLayout>
     </RelativeLayout>
+
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/shadow"
-        android:layout_gravity="bottom"/>
+        android:layout_gravity="bottom"
+        android:background="@color/shadow" />
 
 </FrameLayout>

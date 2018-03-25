@@ -142,6 +142,12 @@ public class FavorDialogFragment extends AAH_FabulousFragment {
                 case 2:
                     inflateLayoutWithFilters("poloniex", fbl);
                     break;
+                case 3:
+                    inflateLayoutWithFilters("coinnest", fbl);
+                    break;
+                case 4:
+                    inflateLayoutWithFilters("korbit", fbl);
+                    break;
             }
             collection.addView(layout);
             return layout;
@@ -167,6 +173,10 @@ public class FavorDialogFragment extends AAH_FabulousFragment {
                     return getString(R.string.coinone);
                 case 2:
                     return getString(R.string.poloniex);
+                case 3:
+                    return getString(R.string.coinnest);
+                case 4:
+                    return getString(R.string.korbit);
             }
             return "";
         }

@@ -43,10 +43,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.1"
+                    android:layout_weight="1.18"
                     android:text="BTC"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingRight="3dp"
                     android:textSize="@dimen/coin_font_size"
                     android:textColor="@color/black"
                     android:id="@+id/coin_name"/>
@@ -55,7 +55,7 @@
                     android:id="@+id/cur_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.915"
                     android:text="3,000원"
                     android:gravity="right"
                     android:textAlignment="gravity"
@@ -92,7 +92,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1.6"
                     android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingRight="3dp"
                     android:text="bithumb"
                     android:textSize="@dimen/convert_pric_font_size"
                     android:id="@+id/exchange_name"/>

@@ -11,12 +11,15 @@
     <string name="save_coin_message">코인 목록이 적용되었습니다.</string>
     <string name="server_connect_failed_message">서버연결에 실패했습니다.</string>
     <string name="save_bithumb_apikey_message">빗썸 API키가 설정되었습니다.</string>
+    <string name="set_order_message">정렬방식이 설정되었습니다.</string>
     <string name="coin">코인</string>
     <string name="price">가격</string>
     <string name="change">변동</string>
     <string name="bithumb">빗썸</string>
     <string name="coinone">코인원</string>
     <string name="poloniex">폴로닉스</string>
+    <string name="korbit">코빗</string>
+    <string name="coinnest">코인네스트</string>
     <string name="coinis">코인이즈</string>
     <string name="start_price">시 가</string>
     <string name="volume">거래량</string>

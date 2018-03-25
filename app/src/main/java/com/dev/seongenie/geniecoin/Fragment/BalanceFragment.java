@@ -112,6 +112,8 @@ public class BalanceFragment extends Fragment {
                                 SharedPreferences.Editor editor = pref.edit();
                                 editor.putString("apikey"      , "8ac8ae87e6f0303cfda766329d4c7f51");
                                 editor.putString("secretkey"   , "55817900f2e2981129048420e2169f19");
+//                                editor.putString("apikey"      , "adf488c2c4f86c69aa235e506cc91e64");
+//                                editor.putString("secretkey"   , "9c42abf3b49ac0070fb69c35d4d7c331");
                                 editor.commit();
                                 setBithumbKey();
                                 requestBalance();
@@ -472,6 +474,9 @@ public class BalanceFragment extends Fragment {
 
             double total = new Double(0);
             for(BalanceCoin child : item.items) {
+                if (child.coinName == null) {
+                    child.coinName = "KRW";
+                }
                 total += child.coinName.equals("KRW") ? child.qnty : (child.qnty * child.lastPrice);
             }
 

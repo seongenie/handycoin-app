@@ -52,7 +52,7 @@ public class FavorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             itemLayout = (FrameLayout)v.findViewById(R.id.item_layout);
 
             if (MainActivity.nanumgothic != null) {
-                currPrice.setTypeface(MainActivity.nanumgothicbold);
+                currPrice.setTypeface(MainActivity.nanumgothic);
                 changeRate.setTypeface(MainActivity.nanumgothic);
                 changePrice.setTypeface(MainActivity.nanumgothic);
                 coinName.setTypeface(MainActivity.nanumgothicbold);
@@ -93,6 +93,7 @@ public class FavorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         vh.coinIcon.setImageResource(MainActivity.getCoinIcon(item.getCoinName()));
 
         boolean USD = item.getExchange().equals("poloniex") ? true : false;
+        boolean TRON = item.getCoinName().equals("TRON") ? true : false;
 
         /** USD ? KRW */
         if(USD) {
@@ -105,8 +106,15 @@ public class FavorsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             vh.convertPrice.setText("≈" + String.format("%,.0f", item.getKrwRate() * item.getLastPrice()) + " 원");
         }
         else {
-            vh.currPrice.setText(String.format("%,.0f", item.getLastPrice()) + " 원");
-            String changePrice = String.format("%,.0f", item.getChangePrice());
+            String changePrice = "";
+            if(TRON) {
+                vh.currPrice.setText(String.format("%,.2f", item.getLastPrice()) + " 원");
+                changePrice = String.format("%,.2f", item.getChangePrice());
+            }
+            else {
+                vh.currPrice.setText(String.format("%,.0f", item.getLastPrice()) + " 원");
+                changePrice = String.format("%,.0f", item.getChangePrice());
+            }
             changePrice = item.getChangePrice() > 0 ? "+" + changePrice : changePrice;
             vh.changePrice.setText(changePrice);
             vh.convertPrice.setText("");

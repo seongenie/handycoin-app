@@ -131,6 +131,7 @@ public class OrderBookFragment extends Fragment {
                     Set<String> bidKeys = bid.keySet();
 
                     boolean USD = basicCoin.getExchange().equals("poloniex") ? true : false;
+                    boolean TRON = basicCoin.getCoinName().equals("TRON") ? true : false;
 
                     queue.clear();
                     for( String askKey : askKeys ) { queue.add(askKey); }
@@ -141,7 +142,13 @@ public class OrderBookFragment extends Fragment {
                     while(!queue.isEmpty()) {
                         key = queue.poll();
                         total_ask_qnty += ask.get(key);
-                        if(!USD) { setTextKRW(askTextViews[i], Double.parseDouble(key)); }
+                        if(!USD) {
+                            if(!TRON) {
+                                setTextKRW(askTextViews[i], Double.parseDouble(key));
+                            } else {
+                                setTextKRWFloat(askTextViews[i], Double.parseDouble(key));
+                            }
+                        }
                         else { setTextUSD(askTextViews[i], Double.parseDouble(key)); }
                         if(!askValueTextViews[i].getText().equals(String.format("%.6f", ask.get(key)))) {
                             blinkAnimation(askTextViews[i], BLINK_DURATION, 1);
@@ -178,7 +185,13 @@ public class OrderBookFragment extends Fragment {
                     while(!queue.isEmpty()) {
                         key = queue.poll();
                         total_bid_qnty += bid.get(key);
-                        if(!USD) { setTextKRW(bidTextViews[i], Double.parseDouble(key)); }
+                        if(!USD) {
+                            if(!TRON) {
+                                setTextKRW(bidTextViews[i], Double.parseDouble(key));
+                            } else {
+                                setTextKRWFloat(bidTextViews[i], Double.parseDouble(key));
+                            }
+                        }
                         else { setTextUSD(bidTextViews[i], Double.parseDouble(key)); }
                         if(!bidValueTextViews[i].getText().equals(String.format("%.6f", bid.get(key)))) {
                             blinkAnimation(bidTextViews[i], BLINK_DURATION, 1);
@@ -218,11 +231,21 @@ public class OrderBookFragment extends Fragment {
                     String changeRate = String.format("%,.2f", getChangeRate(lastPrice, prevPrice));
 
                     if(!USD) {
-                        startPriceTextView.setText(String.format("%,.0f", prevPrice));
-                        highPriceTextView.setText(String.format("%,.0f", maxPrice));
-                        lowPriceTextView.setText(String.format("%,.0f", minPrice));
-                        coinPriceTextView.setText(String.format("%,.0f", lastPrice) + " 원");
-                        changeValue = String.format("%,.0f", lastPrice - prevPrice);
+                        if(TRON) {
+                            startPriceTextView.setText(String.format("%,.02f", prevPrice));
+                            highPriceTextView.setText(String.format("%,.02f", maxPrice));
+                            lowPriceTextView.setText(String.format("%,.02f", minPrice));
+                            coinPriceTextView.setText(String.format("%,.02f", lastPrice) + " 원");
+                            changeValue = String.format("%,.02f", lastPrice - prevPrice);
+                        }
+                        else {
+                            startPriceTextView.setText(String.format("%,.0f", prevPrice));
+                            highPriceTextView.setText(String.format("%,.0f", maxPrice));
+                            lowPriceTextView.setText(String.format("%,.0f", minPrice));
+                            coinPriceTextView.setText(String.format("%,.0f", lastPrice) + " 원");
+                            changeValue = String.format("%,.0f", lastPrice - prevPrice);
+                        }
+
 
                     }
                     else {
@@ -316,8 +339,8 @@ public class OrderBookFragment extends Fragment {
         bidValueTextViews[4] = (TextView) v.findViewById(R.id.bid_value5);
 
         for(int i=0; i<5; i++) {
-            askTextViews[i].setTypeface(MainActivity.nanumgothicbold);
-            bidTextViews[i].setTypeface(MainActivity.nanumgothicbold);
+            askTextViews[i].setTypeface(MainActivity.nanumgothic);
+            bidTextViews[i].setTypeface(MainActivity.nanumgothic);
             askValueTextViews[i].setTypeface(MainActivity.nanumgothic);
             bidValueTextViews[i].setTypeface(MainActivity.nanumgothic);
         }
@@ -326,9 +349,9 @@ public class OrderBookFragment extends Fragment {
         totalRightQnty = (TextView) v.findViewById(R.id.total_right_qnty);
         totalQnty = (TextView) v.findViewById(R.id.total_qnty);
 
-        totalLeftQnty.setTypeface(MainActivity.nanumgothicbold);
-        totalRightQnty.setTypeface(MainActivity.nanumgothicbold);
-        totalQnty.setTypeface(MainActivity.nanumgothicbold);
+        totalLeftQnty.setTypeface(MainActivity.nanumgothic);
+        totalRightQnty.setTypeface(MainActivity.nanumgothic);
+        totalQnty.setTypeface(MainActivity.nanumgothic);
 
         volumeTextView = (TextView) v.findViewById(R.id.volume);
         startPriceTextView = (TextView) v.findViewById(R.id.start_price);
@@ -356,7 +379,7 @@ public class OrderBookFragment extends Fragment {
 
         coinNameTextView.setTypeface(MainActivity.nanumgothicbold);
         exchangeNameTextView.setTypeface(MainActivity.nanumgothic);
-        coinPriceTextView.setTypeface(MainActivity.nanumgothicbold);
+        coinPriceTextView.setTypeface(MainActivity.nanumgothic);
 
         diffRateTextView = (TextView) v.findViewById(R.id.orderbook_diff_rate);
         diffRateTextView.setTypeface(MainActivity.nanumgothic);
@@ -456,6 +479,10 @@ public class OrderBookFragment extends Fragment {
 
     public void setTextKRW(TextView textView, double value) {
         textView.setText(String.format("%,.0f", value));
+    }
+
+    public void setTextKRWFloat(TextView textView, double value) {
+        textView.setText(String.format("%,.02f", value));
     }
 
     public void setTextUSD(TextView textView, double value) {

@@ -10,12 +10,12 @@ import android.view.View;
  * Created by seongjinlee on 2017. 10. 2..
  */
 
-public class FavorOnItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
+public class RecyclerOnItemClickListener extends RecyclerView.SimpleOnItemTouchListener {
 
     private OnItemClickListener mListener;
     private GestureDetector mGestureDetector;
 
-    public FavorOnItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
+    public RecyclerOnItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
         this.mListener = listener;
         mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override

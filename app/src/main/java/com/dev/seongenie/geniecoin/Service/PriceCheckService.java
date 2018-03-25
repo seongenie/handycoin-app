@@ -1,6 +1,7 @@
 package com.dev.seongenie.geniecoin.Service;
 
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -9,12 +10,15 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.dev.seongenie.geniecoin.Api.SqliteRepository;
 import com.dev.seongenie.geniecoin.CoinSources.AlarmCoin;
+import com.dev.seongenie.geniecoin.CoinSources.BasicCoin;
 import com.dev.seongenie.geniecoin.CoinSources.Price;
 import com.dev.seongenie.geniecoin.CoinSources.ResponseFavor;
+import com.dev.seongenie.geniecoin.R;
 import com.dev.seongenie.geniecoin.ServerConnection.RestfulApi;
 
 import java.util.ArrayList;
@@ -60,10 +64,11 @@ public class PriceCheckService extends Service{
                     int upDown = coin.getUpdown();
                     if (upDown > 0 && price.getLastPrice() >= goalPrice) {
                         Log.i("seongenie", "목표가 도달 : " + goalPrice + ", 현재가 : " + price.getLastPrice());
+                        notifyAlarm(coin, goalPrice);
                         removeCoins.add(coin);
-
                     } else if (upDown < 0 && price.getLastPrice() <= goalPrice) {
                         Log.i("seongenie", "목표가 도달 : " + goalPrice + ", 현재가 : " + price.getLastPrice());
+                        notifyAlarm(coin, goalPrice);
                         removeCoins.add(coin);
                     }
                 }
@@ -100,6 +105,23 @@ public class PriceCheckService extends Service{
                 }
             }, 0, REFRESH_INTERVAL);
         }
+    }
+
+    private void notifyAlarm(BasicCoin coin, double price) {
+
+        String textMessage = coin.getCoinName() + "(" + coin.getExchange() + ")이 목표가 " + String.format("%.0f원", price) + " 에 도달했습니다!";
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(getApplicationContext(), "")
+                        .setSmallIcon(R.drawable.ic_bithumb)
+                        .setContentTitle("목표가 도달 알림")
+                        .setContentText(textMessage);
+
+        NotificationManager mNotifyMgr =
+                (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
+        // Builds the notification and issues it.
+        mNotifyMgr.notify((int)Math.random() * 1000 + 1, mBuilder.build());
+
     }
 
     @Override

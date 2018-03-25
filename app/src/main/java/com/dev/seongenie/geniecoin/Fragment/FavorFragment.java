@@ -5,6 +5,7 @@ package com.dev.seongenie.geniecoin.Fragment;
  */
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -14,11 +15,9 @@ import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -31,11 +30,11 @@ import com.dev.seongenie.geniecoin.CoinSources.ResponseFavor;
 import com.dev.seongenie.geniecoin.MainActivity;
 import com.dev.seongenie.geniecoin.R;
 import com.dev.seongenie.geniecoin.ServerConnection.RestfulApi;
-import com.rey.material.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -69,9 +68,51 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
     private Fragment thisFragment = this;
     private ImageButton favorSortButton;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
-    private FavorOnItemClickListener.OnItemClickListener onItemClickListener = null;
+    private RecyclerOnItemClickListener.OnItemClickListener onItemClickListener = null;
     Callback<ResponseFavor> callback;
 
+    /** Order Rule Initialize */
+    private HashMap<String, Comparator<ReceiveFavorCoin>> orderMap = new HashMap<String, Comparator<ReceiveFavorCoin>>(){
+        {
+            put("exchange", new Comparator<ReceiveFavorCoin>() {
+                @Override
+                public int compare(ReceiveFavorCoin c1, ReceiveFavorCoin c2) {
+                    if(c1.getExchange().isEmpty())return 1;
+                    if(c2.getExchange().isEmpty())return -1;
+                    return c1.getExchange().compareTo(c2.getExchange());
+                }
+            });
+
+            put("coin", new Comparator<ReceiveFavorCoin>() {
+                @Override
+                public int compare(ReceiveFavorCoin c1, ReceiveFavorCoin c2) {
+                    if(c1.getCoinName().isEmpty())return 1;
+                    if(c2.getCoinName().isEmpty())return -1;
+                    return c1.getCoinName().compareTo(c2.getCoinName());
+                }
+            });
+
+            put("exchangeReverse", new Comparator<ReceiveFavorCoin>() {
+                @Override
+                public int compare(ReceiveFavorCoin c1, ReceiveFavorCoin c2) {
+                    if(c1.getExchange().isEmpty())return 1;
+                    if(c2.getExchange().isEmpty())return -1;
+                    return c2.getExchange().compareTo(c1.getExchange());
+                }
+            });
+
+            put("coinReverse", new Comparator<ReceiveFavorCoin>() {
+                @Override
+                public int compare(ReceiveFavorCoin c1, ReceiveFavorCoin c2) {
+                    if(c1.getCoinName().isEmpty())return 1;
+                    if(c2.getCoinName().isEmpty())return -1;
+                    return c2.getCoinName().compareTo(c1.getCoinName());
+                }
+            });
+
+
+        }
+    };
 
     public static List<ReceiveFavorCoin> coins = new ArrayList<>();
 
@@ -87,6 +128,7 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_favor, container, false);
         ButterKnife.bind(this, v);
+
         final FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
 
         getActivity().openOrCreateDatabase(SqliteRepository.DATABASE_NAME, Context.MODE_PRIVATE, null);
@@ -134,11 +176,11 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
         adapter = new FavorsAdapter(this.coins);
         recyclerView.setAdapter(adapter);
 
-        recyclerView.addOnItemTouchListener(new FavorOnItemClickListener(getActivity(), recyclerView, onItemClickListener));
+        recyclerView.addOnItemTouchListener(new RecyclerOnItemClickListener(getActivity(), recyclerView, onItemClickListener));
 
-/*        recyclerView.addOnItemTouchListener(new FavorOnItemClickListener(getActivity(),
+/*        recyclerView.addOnItemTouchListener(new RecyclerOnItemClickListener(getActivity(),
                 recyclerView,
-                new FavorOnItemClickListener.OnItemClickListener(){
+                new RecyclerOnItemClickListener.OnItemClickListener(){
 
                     @Override
                     public void onItemClick(View v, int position) {
@@ -152,7 +194,8 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
                     }
                 })
         );
-*/
+
+
 
         /** scroll action (scroll reach at end or not */
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -221,12 +264,49 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
         favorSortButton = (ImageButton) getActivity().findViewById(R.id.favor_sort);
         favorSortButton.setOnClickListener(new ImageButton.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                Log.i("seongenie", "popup button clicked!!");
+                PopupMenu popup = new PopupMenu(getContext(), favorSortButton);
+                popup.getMenuInflater().inflate(R.menu.popup, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.exchange_order :
+                                setOrderRule("exchange");
+                                Collections.sort(coins, getOrderRule());
+                                adapter.notifyDataSetChanged();
+                                break;
+                            case R.id.coin_order :
+                                setOrderRule("coin");
+                                Collections.sort(coins, getOrderRule());
+                                adapter.notifyDataSetChanged();
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                popup.show();
             }
         });
 
         return v;
     }
+
+    private Comparator<ReceiveFavorCoin> getOrderRule() {
+        SharedPreferences pref = getActivity().getSharedPreferences("favorCoin", Context.MODE_PRIVATE);
+        String orderRule = pref.getString("orderRule", "coin");
+        return orderMap.get(orderRule);
+    }
+
+    private void setOrderRule(String rule) {
+        SharedPreferences pref = getActivity().getSharedPreferences("favorCoin", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("orderRule", rule);
+        editor.commit();
+        CommonMessage.getInstance().displaySnackbar(getString(R.string.set_order_message), this, CommonMessage.OK_MESSAGE_TYPE);
+    }
+
 
     private void doSomethingRepeatedly() {
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -273,12 +353,7 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
             }
         }
 
-        Collections.sort(coins, new Comparator<ReceiveFavorCoin>() {
-            @Override
-            public int compare(ReceiveFavorCoin o1, ReceiveFavorCoin o2) {
-                return o1.getCoinName().compareTo(o2.getCoinName());
-            }
-        });
+        Collections.sort(coins, getOrderRule());
 
         if(coins.size() == 0) {
             addCoinMessage.setVisibility(View.VISIBLE);
@@ -316,7 +391,7 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
         }
     }
 
-    public void setOnItemClickListener(FavorOnItemClickListener.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(RecyclerOnItemClickListener.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 

@@ -9,13 +9,14 @@
 
     <com.rey.material.widget.Button
         android:id="@+id/coinchip"
-        android:layout_width="wrap_content"
+        android:layout_width="70dp"
         android:layout_height="40dp"
-        android:layout_margin="8dp"
+        android:layout_margin="5dp"
         android:background="@drawable/chip_unselected"
+        android:textSize="@dimen/coin_chip_size"
         android:gravity="center"
         app:rd_style="@style/CoinChip"
-        tools:text="Filter 1"
+        tools:text="BTCC"
         android:textColor="@color/black" />
 
 </LinearLayout>

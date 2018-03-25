@@ -1,10 +1,8 @@
 package com.dev.seongenie.geniecoin;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -16,17 +14,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.dev.seongenie.geniecoin.Api.SqliteRepository;
 import com.dev.seongenie.geniecoin.Fragment.AlarmFragment;
 import com.dev.seongenie.geniecoin.Fragment.BalanceFragment;
-import com.dev.seongenie.geniecoin.Fragment.FavorOnItemClickListener;
 import com.dev.seongenie.geniecoin.Fragment.OrderBookFragment;
 import com.dev.seongenie.geniecoin.Fragment.FavorFragment;
+import com.dev.seongenie.geniecoin.Fragment.RecyclerOnItemClickListener;
 import com.dev.seongenie.geniecoin.Fragment.TransactionFragment;
-import com.dev.seongenie.geniecoin.Service.PriceCheckService;
 import com.rey.material.widget.ImageButton;
 
 import java.lang.reflect.Field;
@@ -51,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
+
+    @BindView(R.id.fab_alarm)
+    FloatingActionButton alarmFab;
+
+    // favor fragment에서 구현
+//    @BindView(R.id.favor_sort)
+//    ImageButton favorSortButton;
 
     //This is font
     public static Typeface nanumgothic;
@@ -79,9 +82,34 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
+        alarmFab.hide();
+
         nanumgothic = Typeface.createFromAsset(getAssets(), "fonts/nanumgothic.otf");
         nanumgothicbold = Typeface.createFromAsset(getAssets(), "fonts/nanumgothicbold.otf");
         materialIconFont = Typeface.createFromAsset(getAssets(), "fonts/material-icon-font.ttf");
+
+//        favorSortButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.i("seongenie", "popup button clicked!!");
+//                PopupMenu popup = new PopupMenu(getApplicationContext(), favorSortButton);
+//                popup.getMenuInflater().inflate(R.menu.popup, popup.getMenu());
+//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        switch (item.getItemId()) {
+//                            case R.id.exchange_order :
+//                                break;
+//                            case R.id.coin_order :
+//                                break;
+//                        }
+//                        return true;
+//                    }
+//                });
+//                popup.show();
+//            }
+//        });
+
 
         //Initializing viewPager
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -144,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 if (position != 3 )findViewById(R.id.balance_add).setVisibility(View.INVISIBLE);
+                if (position != 4 ) alarmFab.hide();
 
                 switch (position) {
                     case 0 :
@@ -163,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 4 :
                         mainTitle.setText(getString(R.string.tab5));
+                        alarmFab.show();
                         break;
                     default:
                         break;
@@ -201,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         balanceFragment = new BalanceFragment();
         alarmFragment = new AlarmFragment();
 
-        FavorOnItemClickListener.OnItemClickListener onItemClickListener = new FavorOnItemClickListener.OnItemClickListener(){
+        RecyclerOnItemClickListener.OnItemClickListener onItemClickListener = new RecyclerOnItemClickListener.OnItemClickListener(){
             @Override
             public void onItemClick(View v, int position) {
                 Log.i("seongenie", position + " position clicked!!");
@@ -298,6 +328,12 @@ public class MainActivity extends AppCompatActivity {
             case "NXT" :
                 result = R.drawable.ic_nxt;
                 break;
+            case "TRON" :
+                result = R.drawable.tron_black;
+                break;
+            case "KRW" :
+                result = R.drawable.ic_moneybag_blue;
+                break;
             case "" :
                 break;
         }
@@ -311,15 +347,17 @@ public class MainActivity extends AppCompatActivity {
             case "bithumb" :
                 result = "빗썸";
                 break;
-
             case "coinone" :
                 result = "코인원";
                 break;
             case "poloniex" :
                 result = "폴로닉스";
                 break;
-            case "coinis" :
-                result = "코인이즈";
+            case "coinnest" :
+                result = "코인네스트";
+                break;
+            case "korbit" :
+                result = "코빗";
                 break;
         }
         return result;

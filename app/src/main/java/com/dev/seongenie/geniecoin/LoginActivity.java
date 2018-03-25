@@ -18,8 +18,8 @@ import android.widget.ImageButton;
 import com.dev.seongenie.geniecoin.Fragment.AlarmFragment;
 import com.dev.seongenie.geniecoin.Fragment.BalanceFragment;
 import com.dev.seongenie.geniecoin.Fragment.FavorFragment;
-import com.dev.seongenie.geniecoin.Fragment.FavorOnItemClickListener;
 import com.dev.seongenie.geniecoin.Fragment.OrderBookFragment;
+import com.dev.seongenie.geniecoin.Fragment.RecyclerOnItemClickListener;
 import com.dev.seongenie.geniecoin.Fragment.TransactionFragment;
 
 import java.lang.reflect.Field;
@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         balanceFragment = new BalanceFragment();
         alarmFragment = new AlarmFragment();
 
-        FavorOnItemClickListener.OnItemClickListener onItemClickListener = new FavorOnItemClickListener.OnItemClickListener(){
+        RecyclerOnItemClickListener.OnItemClickListener onItemClickListener = new RecyclerOnItemClickListener.OnItemClickListener(){
             @Override
             public void onItemClick(View v, int position) {
                 Log.i("seongenie", position + " position clicked!!");

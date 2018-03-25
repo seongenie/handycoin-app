@@ -142,7 +142,7 @@ public class SqliteRepository extends SQLiteOpenHelper {
         ArrayList<AlarmCoin>  alarmCoins = new ArrayList<AlarmCoin>();
 
         String sql = "select exchange, coin, goal_price, updown, onoff from alarm_coin";
-        sql += onoff ? " where onoff = true" : "";
+        sql += onoff ? " where onoff = 'true'" : "";
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             AlarmCoin temp = new AlarmCoin(
