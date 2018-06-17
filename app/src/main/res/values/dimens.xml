@@ -35,5 +35,6 @@
 
     <dimen name="orderbook_unit">7dp</dimen>
     <dimen name="orderbook_margin">0.5dp</dimen>
+    <dimen name="coin_chip_size">7dp</dimen>
 
 </resources>

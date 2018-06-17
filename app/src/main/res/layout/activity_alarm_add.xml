@@ -4,8 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.dev.seongenie.geniecoin.MainActivity">
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:paddingTop="5dp"
+        android:textSize="@dimen/main_title_font_size"
+        android:paddingBottom="5dp"
+        android:background="@color/primary_blue"
+        android:text="거래소 선택"/>
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alarm_recycler_view"
+        android:layout_below="@id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical" />
 
 
 </RelativeLayout>

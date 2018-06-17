@@ -4,46 +4,31 @@ package com.dev.seongenie.geniecoin.Fragment;
  * Created by seongjinlee on 2017. 10. 2..
  */
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.util.ArrayMap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dev.seongenie.geniecoin.AlarmAddActivity;
+import com.dev.seongenie.geniecoin.AddAlarmActivity;
 import com.dev.seongenie.geniecoin.Api.SqliteRepository;
 import com.dev.seongenie.geniecoin.CoinSources.AlarmCoin;
-import com.dev.seongenie.geniecoin.CoinSources.ReceiveFavorCoin;
 import com.dev.seongenie.geniecoin.MainActivity;
 import com.dev.seongenie.geniecoin.R;
-import com.dev.seongenie.geniecoin.Service.PriceCheckService;
-import com.dev.seongenie.geniecoin.SettingActivity;
 import com.rey.material.widget.CheckBox;
 import com.rey.material.widget.Switch;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,12 +63,12 @@ public class AlarmFragment extends Fragment {
 //        SqliteRepository.getInstance(getContext()).insertAlarm(new AlarmCoin("bithumb", "XRP", 229, 1, true));
 //        SqliteRepository.getInstance(getContext()).insertAlarm(new AlarmCoin("bithumb", "BCH", 420000, 1, true));
 //        SqliteRepository.getInstance(getContext()).insertAlarm(new AlarmCoin("bithumb", "BTC", 6500000, 1, true));
-        populate();
+//        populate();
 
-//        alarmCoins = new ArrayList<AlarmCoin>();
-//        alarmCoins.add(new AlarmCoin("bithumb", "XRP", 286, 1, true));
-//        alarmCoins.add(new AlarmCoin("bithumb", "XRP", 289, 1, true));
-//        alarmCoins.add(new AlarmCoin("bithumb", "XRP", 288, 1, true));
+        alarmCoins = new ArrayList<AlarmCoin>();
+        alarmCoins.add(new AlarmCoin("bithumb", "XRP", 286, 1, true));
+        alarmCoins.add(new AlarmCoin("bithumb", "XRP", 289, 1, true));
+        alarmCoins.add(new AlarmCoin("bithumb", "XRP", 288, 1, true));
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -97,7 +82,7 @@ public class AlarmFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AlarmAddActivity.class);
+                Intent intent = new Intent(getActivity(), AddAlarmActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.enter_down, R.anim.leave_down);
             }

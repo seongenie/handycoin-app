@@ -20,7 +20,7 @@
         </activity>
 
         <activity
-            android:name=".AlarmAddActivity">
+            android:name=".AddAlarmActivity">
         </activity>
 
         <activity
