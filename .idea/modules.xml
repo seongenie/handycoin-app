@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/geniecoin.iml" filepath="$PROJECT_DIR$/geniecoin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/handycoin.iml" filepath="$PROJECT_DIR$/handycoin.iml" />
     </modules>
   </component>
 </project>

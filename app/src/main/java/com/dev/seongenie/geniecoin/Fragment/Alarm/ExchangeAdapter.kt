@@ -21,7 +21,7 @@ class ExchangeAdapter(var list : List<String>?) : RecyclerView.Adapter<ExchangeA
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return if(list?.size != null) list!!.size else 0
     }
 
     open fun setItemList(item : List<String>) {
