@@ -32,23 +32,6 @@ public class TransactionFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_orderbook_container, container, false);
 
-        OrderbookTableLayout layout = (OrderbookTableLayout) v.findViewById(R.id.ask_amount);
-
-        ColorPrice[] items = new ColorPrice[10];
-        for(int i=0; i<10; i++) {
-            items[i] = new ColorPrice(String.valueOf(i*100), getResources().getColor(R.color.black));
-        }
-        layout.setAllItems(items);
-
-        layout = (OrderbookTableLayout) v.findViewById(R.id.ask_price);
-        layout.setAllItems(items);
-
-        layout = (OrderbookTableLayout) v.findViewById(R.id.bid_amount);
-        layout.setAllItems(items);
-
-        layout = (OrderbookTableLayout) v.findViewById(R.id.bid_price);
-        layout.setAllItems(items);
-
         return v;
     }
 

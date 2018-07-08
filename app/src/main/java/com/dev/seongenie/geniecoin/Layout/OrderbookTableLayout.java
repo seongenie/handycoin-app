@@ -2,6 +2,9 @@ package com.dev.seongenie.geniecoin.Layout;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -17,7 +20,10 @@ import com.rey.material.widget.TextView;
  */
 
 public class OrderbookTableLayout extends TableLayout {
+    int current = -1;
 
+    private Drawable borderSelectedRed = ContextCompat.getDrawable(getContext(), R.drawable.border_selected_red);
+    private Drawable borderSelectedBlue = ContextCompat.getDrawable(getContext(), R.drawable.border_selected_blue);
     private ColorPrice[] items = new ColorPrice[10];
     private TextView[] itemTextViews = new TextView[10];
 
@@ -28,6 +34,8 @@ public class OrderbookTableLayout extends TableLayout {
     public static final int GRAVITY_CENTER = 0;
     public static final int GRAVITY_RIGHT = 1;
 
+
+    private int askBid = 0; // ask = 0; bid = 1;
 
 
     public OrderbookTableLayout(Context context) {
@@ -63,8 +71,10 @@ public class OrderbookTableLayout extends TableLayout {
 
             if (color == ASK_COLOR) {
                 tr.setBackground(getResources().getDrawable(R.drawable.cell_shape_ask));
+                askBid = 0;
             } else if (color == BID_COLOR) {
                 tr.setBackground(getResources().getDrawable(R.drawable.cell_shape_bid));
+                askBid = 1;
             }
 
             if (gravity == GRAVITY_LEFT) {
@@ -82,19 +92,46 @@ public class OrderbookTableLayout extends TableLayout {
         }
     }
 
-    public void setAllItems(ColorPrice[] items) {
+    public void setAllAmount(ColorPrice[] items) {
         this.items = items;
         if(items.length == 10) {
             for(int i=0; i<10; i++) {
-                setItem(i, items[i]);
+                setItemAmount(i, items[i]);
             }
         }
     }
 
-    public void setItem(int index, ColorPrice item) {
+    public void setAllPrice(ColorPrice[] items) {
+        this.items = items;
+        if(items.length == 10) {
+            for(int i=0; i<10; i++) {
+                setItemPrice(i, items[i]);
+            }
+        }
+    }
+
+    public void setItemPrice(int index, ColorPrice item) {
         items[index] = item;
         itemTextViews[index].setText(item.getContent());
         itemTextViews[index].setTextColor(item.getColor());
+    }
+
+    public void setItemAmount(int index, ColorPrice item) {
+        items[index] = item;
+        itemTextViews[index].setText(item.getAmount());
+        itemTextViews[index].setTextColor(item.getColor());
+    }
+
+    public void setBorder(int index) {
+        if(current >= 0) {
+            if (askBid == 1) this.getChildAt(current).setBackground(getResources().getDrawable(R.drawable.cell_shape_bid));
+            else this.getChildAt(current).setBackground(getResources().getDrawable(R.drawable.cell_shape_ask));
+        }
+        current = index;
+        if (current >= 0) {
+            if (askBid == 1) this.getChildAt(current).setBackground(borderSelectedRed);
+            else this.getChildAt(current).setBackground(borderSelectedBlue);
+        }
     }
 
 

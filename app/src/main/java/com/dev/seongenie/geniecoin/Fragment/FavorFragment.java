@@ -250,7 +250,7 @@ public class FavorFragment extends Fragment implements AAH_FabulousFragment.Call
                         }
                     }
                 } catch (NullPointerException e) {
-                    CommonMessage.getInstance().displaySnackbar(getString(R.string.server_connect_failed_message), thisFragment, CommonMessage.ERROR_MESSAGE_TYPE);
+//                    CommonMessage.getInstance().displaySnackbar(getString(R.string.server_connect_failed_message), thisFragment, CommonMessage.ERROR_MESSAGE_TYPE);
                 }
                 adapter.notifyDataSetChanged();
             }

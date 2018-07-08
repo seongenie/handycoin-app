@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dev.seongenie.geniecoin.Api.SqliteRepository;
 import com.dev.seongenie.geniecoin.Fragment.AlarmFragment;
@@ -69,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
     MenuItem prevMenuItem;
 
     public static Map<String, List<String>> availableCoins = null;
+
+    // 뒤로가기 버튼
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
+
 
 
     @Override
@@ -363,4 +369,20 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
+
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
+        {
+            super.onBackPressed();
+        }
+        else
+        {
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.back_press_message), Toast.LENGTH_SHORT).show();
+        }
+    }
 }

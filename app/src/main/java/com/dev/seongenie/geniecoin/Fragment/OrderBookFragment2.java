@@ -27,10 +27,8 @@ import com.afollestad.materialdialogs.simplelist.MaterialSimpleListAdapter;
 import com.afollestad.materialdialogs.simplelist.MaterialSimpleListItem;
 import com.dev.seongenie.geniecoin.Api.CommonMessage;
 import com.dev.seongenie.geniecoin.CoinSources.BasicCoin;
-import com.dev.seongenie.geniecoin.CoinSources.ColorPrice;
 import com.dev.seongenie.geniecoin.Fragment.OrderBook.TradeHistory;
 import com.dev.seongenie.geniecoin.Fragment.OrderBook.TradeHistoryView;
-import com.dev.seongenie.geniecoin.Layout.OrderbookTableLayout;
 import com.dev.seongenie.geniecoin.MainActivity;
 import com.dev.seongenie.geniecoin.R;
 import com.dev.seongenie.geniecoin.ServerConnection.RestfulApi;
@@ -39,7 +37,6 @@ import com.rey.material.app.Dialog;
 import com.rey.material.widget.Button;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
@@ -49,8 +46,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.TreeMap;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,27 +54,43 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderBookFragment extends Fragment {
+public class OrderBookFragment2 extends Fragment {
+    private TextView message;
 
-    @BindView(R.id.ask_amount) OrderbookTableLayout askAmountLayout;
-    @BindView(R.id.ask_price) OrderbookTableLayout askPriceLayout;
-    @BindView(R.id.bid_amount) OrderbookTableLayout bidAmountLayout;
-    @BindView(R.id.bid_price) OrderbookTableLayout bidPriceLayout;
-    @BindView(R.id.total_left_qnty) TextView totalLeftQnty;
-    @BindView(R.id.total_right_qnty) TextView totalRightQnty;
-    @BindView(R.id.orderbook_coin_name) TextView coinNameTextView;
-    @BindView(R.id.orderbook_exchange_name) TextView exchangeNameTextView;
-    @BindView(R.id.orderbook_coin_price) TextView coinPriceTextView;
-    @BindView(R.id.orderbook_diff_rate) TextView diffRateTextView;
-    @BindView(R.id.orderbook_coin_icon) ImageView coinIcon;
-    @BindView(R.id.orderbook_triangle) ImageView orderbookTriangle;
-    @BindView(R.id.volume) TextView volumeTextView;
-    @BindView(R.id.start_price) TextView startPriceTextView;
-    @BindView(R.id.lowedst_price) TextView lowPriceTextView;
-    @BindView(R.id.highest_price) TextView highPriceTextView;
+    private TextView askTextViews[];
+    private TextView bidTextViews[];
 
-    private OrderBookFragment thisFragment = this;
+    private TextView askValueTextViews[];
+    private TextView bidValueTextViews[];
+
+    private TextView totalRightQnty;
+    private TextView totalLeftQnty;
+    private TextView totalQnty;
+    private FavorDialogFragment dialogFrag;
+
+    private TextView startPriceTextView;
+    private TextView lowPriceTextView;
+    private TextView highPriceTextView;
+    private TextView volumeTextView;
+
+    private ImageView orderbookTriangle;
+    private ImageView coinIcon;
+
+    private TextView coinNameTextView;
+    private TextView exchangeNameTextView;
+    private TextView coinPriceTextView;
+    private TextView diffRateTextView;
+
+    private Drawable borderUnselected;
+    private Drawable borderSelected;
+
+    private TradeAdapter tradeAdapter;
+    private ArrayList<TradeHistory> histories;
+
+    private OrderBookFragment2 thisFragment = this;
     private BasicCoin basicCoin = null;
+
+    private Dialog selectDialog;
 
     private Timer timer = null;
     private int REFRESH_INTERVAL = 3000;
@@ -90,7 +101,7 @@ public class OrderBookFragment extends Fragment {
     Callback<TradeHistoryView> tradeHistoryCallback;
 
     private static final String TAG_SELECT_ICON_DIALOG = "TAG_SELECT_ICON_DIALOG";
-    public OrderBookFragment() {
+    public OrderBookFragment2() {
         // Required empty public constructor
     }
 
@@ -99,17 +110,9 @@ public class OrderBookFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_orderbook_container, container, false);
-        ButterKnife.bind(this, v);
+        View v = inflater.inflate(R.layout.fragment_orderbook, container, false);
 
 //        message = (TextView) v.findViewById(R.id.no_select);
-
-        coinNameTextView.setTypeface(MainActivity.nanumgothicbold);
-        exchangeNameTextView.setTypeface(MainActivity.nanumgothic);
-        coinPriceTextView.setTypeface(MainActivity.nanumgothic);
-        diffRateTextView.setTypeface(MainActivity.nanumgothic);
-        volumeTextView.setTextColor(Color.BLACK);
-        startPriceTextView.setTextColor(Color.BLACK);
 
         orderbookCallback = new Callback<OrderBookDataView>() {
 
@@ -124,93 +127,109 @@ public class OrderBookFragment extends Fragment {
                     double maxPrice = response.body().getOrderBook().getMaxPrice();
                     double volume = response.body().getOrderBook().getVolume();
 
-                    bidPriceLayout.setBorder(-1);
-                    askPriceLayout.setBorder(-1);
-
-
-                    if(minPrice < prevPrice) {
-                        lowPriceTextView.setTextColor(Color.BLUE);
-                    } else if (minPrice == prevPrice) {
-                        lowPriceTextView.setTextColor(Color.BLACK);
-                    } else {
-                        lowPriceTextView.setTextColor(Color.RED);
-                    }
-
-                    if(maxPrice < prevPrice) {
-                        highPriceTextView.setTextColor(Color.BLUE);
-                    } else if (maxPrice == prevPrice) {
-                        highPriceTextView.setTextColor(Color.BLACK);
-                    } else {
-                        highPriceTextView.setTextColor(Color.RED);
-                    }
-
-                    coinPriceTextView.setText(String.format("%,.0f", lastPrice));
-
                     Set<String> askKeys = ask.keySet();
                     Set<String> bidKeys = bid.keySet();
 
                     boolean USD = basicCoin.getExchange().equals("poloniex") ? true : false;
                     boolean TRON = basicCoin.getCoinName().equals("TRON") ? true : false;
 
-                    int idx=0;
+                    queue.clear();
+                    for( String askKey : askKeys ) { queue.add(askKey); }
+
+                    String key;
+                    int i = 0;
                     double total_ask_qnty = 0;
-                    ColorPrice[] askPriceItems = new ColorPrice[10];
-                    for( String askKey : askKeys ) {
-                        int textColor = Color.BLACK;
-                        if(prevPrice < Double.parseDouble(askKey))textColor = Color.RED;
-                        else if (prevPrice > Double.parseDouble(askKey))textColor = Color.BLUE;
-                        double amount = ask.get(askKey);
-                        total_ask_qnty += amount;
-                        askPriceItems[idx] = new ColorPrice(askKey, String.valueOf(amount), textColor);
-                        idx ++;
-                    }
-
-                    for (int i=0; i<10; i++) {
-                        if (askPriceItems[i] == null) askPriceItems[i] = new ColorPrice("0", "0", Color.BLACK);
-                    }
-                    Arrays.sort(askPriceItems);
-                    askPriceLayout.setAllPrice(askPriceItems);
-                    askAmountLayout.setAllAmount(askPriceItems);
-
-                    idx=0;
-                    double total_bid_qnty = 0;
-                    ColorPrice[] bidPriceItems = new ColorPrice[10];
-                    for( String bidKey : bidKeys ) {
-                        int textColor = Color.BLACK;
-                        if(prevPrice < Double.parseDouble(bidKey))textColor = Color.RED;
-                        else if (prevPrice > Double.parseDouble(bidKey))textColor = Color.BLUE;
-                        double amount = bid.get(bidKey);
-                        total_bid_qnty += amount;
-                        bidPriceItems[idx] = new ColorPrice(bidKey, String.valueOf(amount), textColor);
-                        idx ++;
-                    }
-
-                    for (int i=0; i<10; i++) {
-                        if (bidPriceItems[i] == null) bidPriceItems[i] = new ColorPrice("0", "0", Color.BLACK);
-                    }
-                    Arrays.sort(bidPriceItems);
-                    bidPriceLayout.setAllPrice(bidPriceItems);
-                    bidAmountLayout.setAllAmount(bidPriceItems);
-
-                    for(int i=0; i<10; i++) {
-                        if (Double.parseDouble(bidPriceItems[i].getContent()) == lastPrice) {
-                            bidPriceLayout.setBorder(i);
-                            askPriceLayout.setBorder(-1);
-                            break;
-                        } else if (Double.parseDouble(askPriceItems[i].getContent()) == lastPrice) {
-                            askPriceLayout.setBorder(i);
-                            bidPriceLayout.setBorder(-1);
-                            break;
+                    while(!queue.isEmpty()) {
+                        key = queue.poll();
+                        total_ask_qnty += ask.get(key);
+                        if(!USD) {
+                            if(!TRON) {
+                                setTextKRW(askTextViews[i], Double.parseDouble(key));
+                            } else {
+                                setTextKRWFloat(askTextViews[i], Double.parseDouble(key));
+                            }
                         }
+                        else { setTextUSD(askTextViews[i], Double.parseDouble(key)); }
+                        if(!askValueTextViews[i].getText().equals(String.format("%.6f", ask.get(key)))) {
+                            blinkAnimation(askTextViews[i], BLINK_DURATION, 1);
+                            blinkAnimation(askValueTextViews[i], BLINK_DURATION, 1);
+                        }
+
+                        int textColor = Color.BLACK;
+                        if(prevPrice < Double.parseDouble(key))textColor = Color.RED;
+                        else if (prevPrice > Double.parseDouble(key))textColor = Color.BLUE;
+
+                        try {
+                            if(lastPrice == Double.parseDouble(key)) {
+                                askTextViews[i].setBackground(borderSelected);
+                            }
+                            else {
+                                askTextViews[i].setBackground(borderUnselected);
+                            }
+                        }
+                        catch (Exception e) {
+                            Log.e("seongenie", "호가 배경선택 오류!");
+                            e.printStackTrace();
+                        }
+
+                        askTextViews[i].setTextColor(textColor);
+
+                        askValueTextViews[i++].setText(String.format("%.6f", ask.get(key)));
                     }
+
+                    queue.clear();
+                    for( String bidKey : bidKeys ) { queue.add(bidKey); }
+
+                    double total_bid_qnty = 0;
+                    i = 0;
+                    while(!queue.isEmpty()) {
+                        key = queue.poll();
+                        total_bid_qnty += bid.get(key);
+                        if(!USD) {
+                            if(!TRON) {
+                                setTextKRW(bidTextViews[i], Double.parseDouble(key));
+                            } else {
+                                setTextKRWFloat(bidTextViews[i], Double.parseDouble(key));
+                            }
+                        }
+                        else { setTextUSD(bidTextViews[i], Double.parseDouble(key)); }
+                        if(!bidValueTextViews[i].getText().equals(String.format("%.6f", bid.get(key)))) {
+                            blinkAnimation(bidTextViews[i], BLINK_DURATION, 1);
+                            blinkAnimation(bidValueTextViews[i], BLINK_DURATION, 1);
+                        }
+
+                        int textColor = Color.BLACK;
+                        if(prevPrice < Double.parseDouble(key))textColor = Color.RED;
+                        else if (prevPrice > Double.parseDouble(key))textColor = Color.BLUE;
+
+                        bidTextViews[i].setTextColor(textColor);
+
+                        try {
+                            if(lastPrice == Double.parseDouble(key)) {
+                                bidTextViews[i].setBackground(borderSelected);
+                            }
+                            else {
+                                bidTextViews[i].setBackground(borderUnselected);
+                            }
+                        } catch (Exception e) {
+                            Log.e("seongenie", "호가 배경선택 오류!");
+                            e.printStackTrace();
+                        }
+
+
+                        bidValueTextViews[i++].setText(String.format("%.6f", bid.get(key)));
+                    }
+
 
                     totalLeftQnty.setText(String.format("%.6f", total_ask_qnty));
                     totalRightQnty.setText(String.format("%.6f", total_bid_qnty));
 
-                    String changeValue = String.format("%,.02f", lastPrice - prevPrice);
+                    volumeTextView.setText(String.format("%,.3f", volume));
+
+                    String changeValue;
+
                     String changeRate = String.format("%,.2f", getChangeRate(lastPrice, prevPrice));
 
-                    volumeTextView.setText(String.format("%,.3f", volume));
                     if(!USD) {
                         if(TRON) {
                             startPriceTextView.setText(String.format("%,.02f", prevPrice));
@@ -226,6 +245,8 @@ public class OrderBookFragment extends Fragment {
                             coinPriceTextView.setText(String.format("%,.0f", lastPrice) + " 원");
                             changeValue = String.format("%,.0f", lastPrice - prevPrice);
                         }
+
+
                     }
                     else {
                         startPriceTextView.setText(String.format("%,.3f", prevPrice));
@@ -233,6 +254,22 @@ public class OrderBookFragment extends Fragment {
                         lowPriceTextView.setText(String.format("%,.3f", minPrice));
                         coinPriceTextView.setText("$ " + String.format("%,.3f", lastPrice));
                         changeValue = String.format("%,.3f", lastPrice - prevPrice);
+                    }
+
+                    if(minPrice < prevPrice) {
+                        lowPriceTextView.setTextColor(Color.BLUE);
+                    } else if (minPrice == prevPrice) {
+                        lowPriceTextView.setTextColor(Color.BLACK);
+                    } else {
+                        lowPriceTextView.setTextColor(Color.RED);
+                    }
+
+                    if(maxPrice < prevPrice) {
+                        highPriceTextView.setTextColor(Color.BLUE);
+                    } else if (maxPrice == prevPrice) {
+                        highPriceTextView.setTextColor(Color.BLACK);
+                    } else {
+                        highPriceTextView.setTextColor(Color.RED);
                     }
 
 
@@ -266,6 +303,96 @@ public class OrderBookFragment extends Fragment {
             }
         };
 
+
+        borderUnselected = ContextCompat.getDrawable(getActivity(), R.drawable.border_rect);
+        borderSelected = ContextCompat.getDrawable(getActivity(), R.drawable.border_selected_rect);
+        orderbookTriangle = (ImageView) v.findViewById(R.id.orderbook_triangle);
+        coinIcon = (ImageView) v.findViewById(R.id.orderbook_coin_icon);
+
+        askTextViews = new TextView[5];
+        askValueTextViews = new TextView[5];
+        bidTextViews = new TextView[5];
+        bidValueTextViews = new TextView[5];
+
+        askTextViews[0] = (TextView) v.findViewById(R.id.ask1);
+        askTextViews[1] = (TextView) v.findViewById(R.id.ask2);
+        askTextViews[2] = (TextView) v.findViewById(R.id.ask3);
+        askTextViews[3] = (TextView) v.findViewById(R.id.ask4);
+        askTextViews[4] = (TextView) v.findViewById(R.id.ask5);
+
+        askValueTextViews[0] = (TextView) v.findViewById(R.id.ask_value1);
+        askValueTextViews[1] = (TextView) v.findViewById(R.id.ask_value2);
+        askValueTextViews[2] = (TextView) v.findViewById(R.id.ask_value3);
+        askValueTextViews[3] = (TextView) v.findViewById(R.id.ask_value4);
+        askValueTextViews[4] = (TextView) v.findViewById(R.id.ask_value5);
+
+        bidTextViews[0] = (TextView) v.findViewById(R.id.bid1);
+        bidTextViews[1] = (TextView) v.findViewById(R.id.bid2);
+        bidTextViews[2] = (TextView) v.findViewById(R.id.bid3);
+        bidTextViews[3] = (TextView) v.findViewById(R.id.bid4);
+        bidTextViews[4] = (TextView) v.findViewById(R.id.bid5);
+
+        bidValueTextViews[0] = (TextView) v.findViewById(R.id.bid_value1);
+        bidValueTextViews[1] = (TextView) v.findViewById(R.id.bid_value2);
+        bidValueTextViews[2] = (TextView) v.findViewById(R.id.bid_value3);
+        bidValueTextViews[3] = (TextView) v.findViewById(R.id.bid_value4);
+        bidValueTextViews[4] = (TextView) v.findViewById(R.id.bid_value5);
+
+        for(int i=0; i<5; i++) {
+            askTextViews[i].setTypeface(MainActivity.nanumgothic);
+            bidTextViews[i].setTypeface(MainActivity.nanumgothic);
+            askValueTextViews[i].setTypeface(MainActivity.nanumgothic);
+            bidValueTextViews[i].setTypeface(MainActivity.nanumgothic);
+        }
+
+        totalLeftQnty = (TextView) v.findViewById(R.id.total_left_qnty);
+        totalRightQnty = (TextView) v.findViewById(R.id.total_right_qnty);
+        totalQnty = (TextView) v.findViewById(R.id.total_qnty);
+
+        totalLeftQnty.setTypeface(MainActivity.nanumgothic);
+        totalRightQnty.setTypeface(MainActivity.nanumgothic);
+        totalQnty.setTypeface(MainActivity.nanumgothic);
+
+        volumeTextView = (TextView) v.findViewById(R.id.volume);
+        startPriceTextView = (TextView) v.findViewById(R.id.start_price);
+        lowPriceTextView = (TextView) v.findViewById(R.id.lowedst_price);
+        highPriceTextView = (TextView) v.findViewById(R.id.highest_price);
+
+        volumeTextView.setTextColor(Color.BLACK);
+        startPriceTextView.setTextColor(Color.BLACK);
+
+        ((TextView)v.findViewById(R.id.volume_label)).setTypeface(MainActivity.nanumgothicbold);
+        ((TextView)v.findViewById(R.id.start_price_label)).setTypeface(MainActivity.nanumgothicbold);
+        ((TextView)v.findViewById(R.id.highest_price_label)).setTypeface(MainActivity.nanumgothicbold);
+        ((TextView)v.findViewById(R.id.lowest_price_label)).setTypeface(MainActivity.nanumgothicbold);
+
+        ((TextView)v.findViewById(R.id.subtitle_contract)).setTypeface(MainActivity.nanumgothic);
+        ((TextView)v.findViewById(R.id.subtitle_trading)).setTypeface(MainActivity.nanumgothic);
+
+        ((TextView)v.findViewById(R.id.textview_buy_qnty)).setTypeface(MainActivity.nanumgothic);
+        ((TextView)v.findViewById(R.id.textview_order_price)).setTypeface(MainActivity.nanumgothic);
+        ((TextView)v.findViewById(R.id.textview_sell_qnty)).setTypeface(MainActivity.nanumgothic);
+
+        coinNameTextView = (TextView) v.findViewById(R.id.orderbook_coin_name);
+        exchangeNameTextView = (TextView) v.findViewById(R.id.orderbook_exchange_name);
+        coinPriceTextView = (TextView) v.findViewById(R.id.orderbook_coin_price);
+
+        coinNameTextView.setTypeface(MainActivity.nanumgothicbold);
+        exchangeNameTextView.setTypeface(MainActivity.nanumgothic);
+        coinPriceTextView.setTypeface(MainActivity.nanumgothic);
+
+        diffRateTextView = (TextView) v.findViewById(R.id.orderbook_diff_rate);
+        diffRateTextView.setTypeface(MainActivity.nanumgothic);
+
+
+        View dialogView = inflater.inflate(R.layout.favor_filter_view, container, false);
+//
+//        selectDialog = new Dialog(this.getContext());
+//        selectDialog.title("거래소 선택")
+//                .positiveAction("OK")
+//                .negativeAction("CANCEL")
+//                .contentView(dialogView)
+//                .cancelable(true);
 
         Button searchButton = (Button) v.findViewById(R.id.orderbook_search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -305,6 +432,42 @@ public class OrderBookFragment extends Fragment {
         searchButton.setTypeface(MainActivity.materialIconFont);
 
 
+        ListView listview ;
+
+        histories = new ArrayList<TradeHistory>();
+        // Adapter 생성
+        tradeAdapter = new TradeAdapter(histories);
+
+        // 리스트뷰 참조 및 Adapter달기
+        listview = (ListView) v.findViewById(R.id.listview_tradehistory);
+        listview.setAdapter(tradeAdapter);
+
+        tradeHistoryCallback = new Callback<TradeHistoryView>() {
+
+            @Override
+            public void onResponse(Call<TradeHistoryView> call, Response<TradeHistoryView> response) {
+                try {
+                    Map<String, TradeHistory> history = response.body().getHistory();
+                    TreeMap<String, TradeHistory> treeMapReverse = new TreeMap<String, TradeHistory>(Collections.reverseOrder());
+                    treeMapReverse.putAll(history);
+                    Iterator<String> treeMapReverseIter = treeMapReverse.keySet().iterator();
+                    while( treeMapReverseIter.hasNext()) {
+                        String key = treeMapReverseIter.next();
+                        TradeHistory value = treeMapReverse.get( key );
+                        tradeAdapter.addItem(value);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TradeHistoryView> call, Throwable t) {
+
+            }
+        };
+
+
 
         //Defatul value
         if (this.basicCoin == null ) {
@@ -313,16 +476,6 @@ public class OrderBookFragment extends Fragment {
 
         return v;
     }
-
-
-    private String convertKRW(double value) {
-        return String.format("%,.0f", value);
-    }
-
-    private String convertUSD(double value) {
-        return String.format("%.06f", value);
-    }
-
 
     public void setTextKRW(TextView textView, double value) {
         textView.setText(String.format("%,.0f", value));
@@ -348,7 +501,9 @@ public class OrderBookFragment extends Fragment {
 
     public void setOrderBookCoin(BasicCoin basicCoin) {
         this.basicCoin = basicCoin;
-
+        if (histories != null) {
+            histories.clear();
+        }
         if(basicCoin != null) {
             coinNameTextView.setText(basicCoin.getCoinName());
             exchangeNameTextView.setText(MainActivity.exchangeToKorean(basicCoin.getExchange()));
@@ -367,7 +522,7 @@ public class OrderBookFragment extends Fragment {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
                 RestfulApi.getInstance().getOrderBook(basicCoin, orderbookCallback);
-//                RestfulApi.getInstance().getTradeHistory(basicCoin, tradeHistoryCallback);
+                RestfulApi.getInstance().getTradeHistory(basicCoin, tradeHistoryCallback);
                 Log.d("seongenie", "orderbook network call!!");
                 Log.d("seongenie", "tradeHistory network call!!");
             }

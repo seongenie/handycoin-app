@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
+      <module fileurl="file://C:\Users\lsj23\StudioProjects\handycoin\android.iml" filepath="C:\Users\lsj23\StudioProjects\handycoin\android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/geniecoin.iml" filepath="$PROJECT_DIR$/geniecoin.iml" />
+      <module fileurl="file://C:\Users\lsj23\StudioProjects\handycoin\geniecoin.iml" filepath="C:\Users\lsj23\StudioProjects\handycoin\geniecoin.iml" />
       <module fileurl="file://$PROJECT_DIR$/handycoin.iml" filepath="$PROJECT_DIR$/handycoin.iml" />
     </modules>
   </component>

@@ -30,12 +30,14 @@ public class SplashActivity extends AppCompatActivity {
         RestfulApi.getInstance().getExchangeCoins(new Callback<Map<String, List<String>>>() {
             @Override
             public void onResponse(Call<Map<String, List<String>>> call, Response<Map<String, List<String>>> response) {
-                Map<String, List<String>> possibleCoinList = response.body();
-                Set<String> exchanges = possibleCoinList.keySet();
-                for (String exchange : exchanges) {
-                    List<String> coins = possibleCoinList.get(exchange);
-                    for(String coin : coins) {
-                        SqliteRepository.getInstance(getApplicationContext()).insertFavor(exchange, coin, false);
+                if (response.code() == 200) {
+                    Map<String, List<String>> possibleCoinList = response.body();
+                    Set<String> exchanges = possibleCoinList.keySet();
+                    for (String exchange : exchanges) {
+                        List<String> coins = possibleCoinList.get(exchange);
+                        for(String coin : coins) {
+                            SqliteRepository.getInstance(getApplicationContext()).insertFavor(exchange, coin, false);
+                        }
                     }
                 }
                 changeActivity();
